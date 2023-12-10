@@ -513,7 +513,7 @@
                 </a>
 
                 <!-- troubleshooting -->
-                <!-- <p style="color: white;">sadlkmask</p> -->
+                <p style="color: white;">sadlkmask</p>
 
                 <div class="title-wrapper">
                 <a href="{{ route('movie-details', ['id' => $movie['id']]) }}">
