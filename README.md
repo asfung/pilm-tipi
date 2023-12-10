@@ -13,11 +13,8 @@ https://github.com/Straufer/pilm-tipi/assets/129583516/11728c06-5273-4175-90a0-b
 
 
 ## What I Use?
-- ### Laravel
-- ### Bootstrap
-- ### TMDB
-- ### PostgreSQL
+- #### Laravel
+- #### Bootstrap
+- #### TMDB
+- #### PostgreSQL
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
