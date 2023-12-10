@@ -511,7 +511,9 @@
                     <img src="{{ 'https://image.tmdb.org/t/p/w500' . $movie['poster_path'] }}" alt="poster">
                   </figure>
                 </a>
-                <p style="color: white;">sadlkmask</p>
+
+                <!-- troubleshooting -->
+                <!-- <p style="color: white;">sadlkmask</p> -->
 
                 <div class="title-wrapper">
                 <a href="{{ route('movie-details', ['id' => $movie['id']]) }}">
