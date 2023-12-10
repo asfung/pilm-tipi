@@ -266,14 +266,27 @@
 
           <div class="slider-container" data-slider-container>
 
-            @foreach($tvDetails['seasons'] as $season)
-            @if($season['air_date'] !== null)
+            @php
+            $sortedSeasons = collect($tvDetails['seasons'])
+              ->filter(function ($season) {
+                  return $season['air_date'] !== null;
+              })
+              ->sortByDesc('air_date')
+              ->values()
+              ->all();
+            @endphp
+
+            @foreach($sortedSeasons as $season)
               <div class="slider-item">
                 <div class="card img-holder" style="--width: 500; --height: 750;">
                   <img src="{{ 'https://image.tmdb.org/t/p/w500' . $season['poster_path']}}" width="500" height="750" alt="" class="img-cover">
                 </div>
+                <div class="card-meta" style="display: flex;">
+                  <p class="card-title" style="color: white; margin-right:120px;">{{ $season['name'] }}</p>
+                  <p class="rating" style="color: yellow;">{{ $season['episode_count'] }} Eps</p>
+                </div>
+                  <p class="storyline">{{$season['air_date']}}</p>
               </div>
-            @endif
             @endforeach
 
             </div>
@@ -362,7 +375,7 @@
       <div class="container">
 
         <p class="copyright">
-          &copy; 2022 <a href="#">codewithsadee</a>. All Rights Reserved
+          &copy; 2023 <a href="#">Paung</a>. All Rights Reserved
         </p>
 
         <img src="./assets/images/footer-bottom-img.png" alt="Online banking companies logo" class="footer-bottom-img">
