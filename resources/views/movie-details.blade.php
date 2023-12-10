@@ -339,7 +339,7 @@
       <div class="container">
 
         <p class="copyright">
-          &copy; 2022 <a href="#">codewithsadee</a>. All Rights Reserved
+          &copy; 2023 <a href="#">Paung</a>. All Rights Reserved
         </p>
 
         <img src="./assets/images/footer-bottom-img.png" alt="Online banking companies logo" class="footer-bottom-img">
