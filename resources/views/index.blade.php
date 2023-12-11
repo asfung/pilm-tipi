@@ -23,6 +23,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  @vite('resources/css/app.css')
+  @livewireStyles
 </head>
 
 <body id="top">
@@ -41,8 +43,8 @@
 
         @if(Auth::check())
         <div>
+        <!-- <p class="text-yellow-400 font-bold text-3xl">pilem atooo tipi | {{ Auth::user()->name }}</p> -->
         <p class="hero-subtitle">pilem atooo tipi | {{ Auth::user()->name }}</p>
-
         </div>
         @else
         <p class="hero-subtitle">pilem atooo tipi</p>
@@ -51,9 +53,10 @@
 
       <div class="header-actions">
 
-        <button class="search-btn">
+        <!-- <button class="search-btn">
           <ion-icon name="search-outline"></ion-icon>
-        </button>
+        </button> -->
+        <livewire:search-dropdown>
 
         @if(Auth::check())
         <a href="/logout"><button class="btn btn-primary">Logout</button></a>
@@ -92,13 +95,17 @@
             <a href="#top-rated-movie" class="navbar-link">Movie</a>
           </li>
 
+          <!-- just authenticated user can access -->
           <li>
             <a href="#tv-series" class="navbar-link">Tv Show</a>
           </li>
-
           <li>
-            <a href="#" class="navbar-link">Web Series</a>
+            <a href="#tv-series" class="navbar-link">Bookmarks</a>
           </li>
+
+          <!-- <li>
+            <a href="#" class="navbar-link">Web Series</a>
+          </li> -->
 
           <!-- <li>
             <a href="#" class="navbar-link">Pricing</a>
@@ -513,7 +520,7 @@
                 </a>
 
                 <!-- troubleshooting -->
-                <p style="color: white;">sadlkmask</p>
+                <!-- <p style="color: white;">sadlkmask</p> -->
 
                 <div class="title-wrapper">
                 <a href="{{ route('movie-details', ['id' => $movie['id']]) }}">
@@ -905,7 +912,7 @@
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
+  @livewireScripts
 </body>
 
 </html>
