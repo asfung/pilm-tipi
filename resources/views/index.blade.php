@@ -1,3 +1,4 @@
+use Illuminate\Support\Facades\Http;
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +25,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   @vite('resources/css/app.css')
-  @livewireStyles
 </head>
 
 <body id="top">
@@ -100,7 +100,7 @@
             <a href="#tv-series" class="navbar-link">Tv Show</a>
           </li>
           <li>
-            <a href="#tv-series" class="navbar-link">Bookmarks</a>
+            <a href="#tv-series" class="navbar-link" title="Coming Soon">Bookmarks</a>
           </li>
 
           <!-- <li>
@@ -520,8 +520,13 @@
                 </a>
 
                 <!-- troubleshooting -->
-                <!-- <p style="color: white;">sadlkmask</p> -->
-
+                <!-- <p style="color: white;">
+                <?php 
+                // dump($get_data_value = Illuminate\Support\Facades\Http::asJson()->get(config('services.tmdb.endpoint') . 'movie/' . $movie['id'] . '?api_key=' . config('services.tmdb.api'))->json());
+                // echo $get_data_value['title'];
+                ?>
+                </p> -->
+                
                 <div class="title-wrapper">
                 <a href="{{ route('movie-details', ['id' => $movie['id']]) }}">
                     <h3 class="card-title">{{ $movie['title'] }}</h3>
@@ -531,7 +536,12 @@
                 </div>
 
                 <div class="card-meta">
-                  <div class="badge badge-outline">2K</div>
+                  <div class="badge badge-outline">
+                    <?php
+                      $get_data_value = $http_id_value::asJson()->get(config('services.tmdb.endpoint') . 'movie/' . $movie['id'] . '?api_key=' . config('services.tmdb.api'))->json();
+                      echo $get_data_value['status'];
+                      ?>
+                  </div>
 
                   <div class="duration">
                     <ion-icon name="time-outline"></ion-icon>
@@ -541,8 +551,11 @@
                     <!-- on popular endpoint wasnt has a runtime / duration property -->
                     <!-- just one way to get is just inject by id -->
                     
-                    <!-- <time datetime="PT122M">{{ $get_data_value['runtime'] }} min</time> -->
-                    <time datetime="PT122M">{{ $movie['vote_average'] }} min</time>
+                    <time datetime="PT122M">
+                    <?php
+                      echo $get_data_value['runtime'];
+                      ?>
+                    min</time>
 
                   </div>
 
@@ -912,7 +925,6 @@
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  @livewireScripts
 </body>
 
 </html>

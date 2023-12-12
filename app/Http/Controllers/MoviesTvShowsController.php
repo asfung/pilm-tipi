@@ -8,6 +8,7 @@ class MoviesTvShowsController extends Controller
 {
     public function index(){
         $client = new \GuzzleHttp\Client();
+        $http_id_value = Http::class;
 
         $response = $client->request('GET', config('services.tmdb.endpoint') . 'movie/popular?include_adult=false&language=en-US' . '&api_key=' . config('services.tmdb.api'), [
             'headers' => [
@@ -18,8 +19,8 @@ class MoviesTvShowsController extends Controller
 
         $data_film = json_decode($response->getBody(), true);
 
-        // still not fixed
-        $get_data_value = Http::asJson()->get(config('services.tmdb.endpoint') . 'movie/' . $data_film['results'][0]['id'] . '?api_key=' . config('services.tmdb.api'));
+        // FIXED but not in here
+        // $get_data_value = Http::asJson()->get(config('services.tmdb.endpoint') . 'movie/' . $data_film['results'][0]['id'] . '?api_key=' . config('services.tmdb.api'));
 
           // tv shows
         // $client = new \GuzzleHttp\Client();
@@ -34,7 +35,7 @@ class MoviesTvShowsController extends Controller
     
     $tvShows = json_decode($responseTv->getBody(), true);
 
-        return view('index', compact('data_film', 'get_data_value', 'tvShows'));
+        return view('index', compact('data_film', 'tvShows', 'http_id_value'));
 
     }
     
