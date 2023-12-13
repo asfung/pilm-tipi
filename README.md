@@ -8,12 +8,14 @@
 </p>
 
 ## Overview
-https://github.com/Straufer/pilm-tipi/assets/129583516/11728c06-5273-4175-90a0-b93d33bac258
+https://github.com/Straufer/pilm-tipi/assets/129583516/11728c06-5273-4175-90a0-b93d33bac258 
+<p style="color: red; font-weight: bold;">Image Not Updated</p>
 
 
 
 ## What I Use?
 - #### Laravel
+- #### Livewire
 - #### Bootstrap
 - #### TMDB
 - #### PostgreSQL
