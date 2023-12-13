@@ -23,6 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  @vite('resources/css/app.css')
 </head>
 
 <style>
@@ -63,27 +64,15 @@
       <div class="overlay" data-overlay></div>
 
       <a href="/" class="logo">
-        <p class="hero-subtitle">Pilem Lah</p>
+        <p class="hero-subtitle">Pilem Lah | {{Auth::user()->name}}</p>
       </a>
 
       <div class="header-actions">
 
-        <button class="search-btn">
+        <!-- <button class="search-btn">
           <ion-icon name="search-outline"></ion-icon>
-        </button>
-
-        <div class="lang-wrapper">
-          <label for="language">
-            <ion-icon name="globe-outline"></ion-icon>
-          </label>
-
-          <select name="language" id="language">
-            <option value="en">EN</option>
-            <option value="au">AU</option>
-            <option value="ar">AR</option>
-            <option value="tu">TU</option>
-          </select>
-        </div>
+        </button> -->
+        <livewire:search-dropdown>
 
         <!-- <button class="btn btn-primary">Sign in</button> -->
         @if(Auth::check())
@@ -119,54 +108,20 @@
           </li>
 
           <li>
-            <a href="#" class="navbar-link">Movie</a>
+            <a href="/#top-rated-movie" class="navbar-link">Movie</a>
           </li>
 
           <li>
-            <a href="#" class="navbar-link">Tv Show</a>
+            <a href="/#tv-series" class="navbar-link">Tv Show</a>
           </li>
 
           <li>
-            <a href="#" class="navbar-link">Web Series</a>
+            <a href="#" class="navbar-link">Bookmarks</a>
           </li>
-
+<!-- 
           <li>
             <a href="#" class="navbar-link">Pricing</a>
-          </li>
-
-        </ul>
-
-        <ul class="navbar-social-list">
-
-          <li>
-            <a href="#" class="navbar-social-link">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="navbar-social-link">
-              <ion-icon name="logo-facebook"></ion-icon>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="navbar-social-link">
-              <ion-icon name="logo-pinterest"></ion-icon>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="navbar-social-link">
-              <ion-icon name="logo-instagram"></ion-icon>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="navbar-social-link">
-              <ion-icon name="logo-youtube"></ion-icon>
-            </a>
-          </li>
+          </li> -->
 
         </ul>
 
@@ -205,11 +160,11 @@
 
             <div class="meta-wrapper">
 
-              <div class="badge-wrapper">
+              <!-- <div class="badge-wrapper">
                 <div class="badge badge-fill">PG 13</div>
 
                 <div class="badge badge-outline">HD</div>
-              </div>
+              </div> -->
 
               <div class="ganre-wrapper">
 
@@ -254,6 +209,7 @@
             <p class="storyline">
               {{ $movieDetails['overview'] }}
             </p>
+            <!-- <p>status: {{ $movieDetails['status'] }}</p> -->
 
           </div>
 
