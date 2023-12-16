@@ -36,7 +36,7 @@ Route::get('/', [MoviesTvShowsController::class, 'index'])->middleware('AksesUse
 Route::get('/movie/{id}', [MoviesTvShowsController::class, 'movieDetail'])->name('movie-details')->middleware('AksesUser:user');
 Route::get('/tv/{id}', [MoviesTvShowsController::class, 'tvDetail'])->name('tv-details')->middleware('AksesUser:user');
 
-Route::get('/user/bookmarks', [MoviesTvShowsController::class, 'index'])->name('bookmarks')->middleware('AksesUser:user');
+Route::get('/user/bookmarks', [SessionController::class, 'bookmarks'])->name('bookmarks')->middleware('AksesUser:user');
 
 // Route::middleware('auth')->group(function() {
 //     Route::get('/', [MoviesTvShowsController::class, 'index'])->middleware('AksesUser:user');

@@ -42,4 +42,8 @@ class SessionController extends Controller
         Auth::logout();
         return redirect('');
     }
+
+    function bookmarks(){
+        return view('bookmarks');
+    }
 }

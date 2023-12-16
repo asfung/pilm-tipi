@@ -231,7 +231,7 @@
 
           <div class="slider card-slider" data-slider>
 
-            <div class="slider-container" id="slider-c" data-slider-container>
+            <div class="slider-container" data-slider-container>
 
               @php
               $sortedSeasons = collect($tvDetails['seasons'])
@@ -386,19 +386,6 @@
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-<!-- mousewheel slider animation  -->
-  <script>
-    const sliderContainer = document.getElementById('slider-c');
-
-    sliderContainer.addEventListener('wheel', (event) => {
-      event.preventDefault();
-
-      const scrollDelta = event.deltaY || event.detail || event.wheelDelta;
-
-      sliderContainer.scrollLeft += scrollDelta * scrollSensitivity;
-      sliderContainer.style.transition = 'transform 0.5s ease';
-    });
-  </script>
 </body>
 
 </html>

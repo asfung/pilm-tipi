@@ -816,7 +816,7 @@ body.active { overflow: hidden; }
   background: url("../images/footer-bg.jpg") no-repeat;
   background-size: cover;
   background-position: center;
-  padding-block: 80px 50px;
+  padding-block: 30px 50px;
 }
 
 .footer-brand-wrapper .logo {
@@ -879,7 +879,10 @@ body.active { overflow: hidden; }
   transition: var(--transition-1);
 }
 
-.footer-bottom { padding-block: 25px; }
+.footer-bottom { 
+  padding-block: 25px; 
+
+}
 
 .copyright {
   color: var(--gray-x);

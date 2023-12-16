@@ -1,3 +1,9 @@
+<?php
+$allBookmarks = getAllBookmark();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +11,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ $movieDetails['title'] }}</title>
+  <title>pilem ato tipi lah bossss...</title>
 
   <!-- 
     - favicon
@@ -26,33 +32,7 @@
   @vite('resources/css/app.css')
 </head>
 
-<style>
-
-  .movie-detail{
-    background: url("https://image.tmdb.org/t/p/w500{{ $movieDetails['poster_path'] }}") no-repeat;
-    background-size: cover;
-    background-position: center;
-    padding-top: 160px;
-    padding-bottom: var(--section-padding);
-  }
-
-  .movie-detail::before {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: inherit;
-    background-size: cover;
-    backdrop-filter: blur(10px); 
-    z-index: -1;
-}
-
-</style>
-
-<body id="#top">
+<body id="top">
 
   <!-- 
     - #HEADER
@@ -63,8 +43,17 @@
 
       <div class="overlay" data-overlay></div>
 
-      <a href="/" class="logo">
-        <p class="hero-subtitle">Pilem Lah</p>
+      <a href="./index.html" class="logo">
+        <!-- <img src="./assets/images/logo.svg" alt="Filmlane logo"> -->
+
+        @if(Auth::check())
+        <div>
+        <!-- <p class="text-yellow-400 font-bold text-3xl">pilem atooo tipi | {{ Auth::user()->name }}</p> -->
+        <p class="hero-subtitle">pilem atooo tipi | {{ Auth::user()->name }}</p>
+        </div>
+        @else
+        <p class="hero-subtitle">pilem atooo tipi</p>
+        @endif
       </a>
 
       <div class="header-actions">
@@ -74,12 +63,12 @@
         </button> -->
         <livewire:search-dropdown>
 
-        <!-- <button class="btn btn-primary">Sign in</button> -->
         @if(Auth::check())
         <a href="/logout"><button class="btn btn-primary">Logout</button></a>
         @else
         <a href="/login"><button class="btn btn-primary">Login</button></a>
         @endif
+
 
       </div>
 
@@ -104,24 +93,21 @@
         <ul class="navbar-list">
 
           <li>
-            <a href="/" class="navbar-link">Home</a>
+            <a href="/#top" class="navbar-link">Home</a>
           </li>
 
           <li>
             <a href="/#top-rated-movie" class="navbar-link">Movie</a>
           </li>
 
+          <!-- just authenticated user can access -->
           <li>
             <a href="/#tv-series" class="navbar-link">Tv Show</a>
           </li>
 
           <li>
-            <a href="#" class="navbar-link">Bookmarks</a>
+            <a href="/user/bookmarks" class="navbar-link">Bookmarks</a>
           </li>
-<!-- 
-          <li>
-            <a href="#" class="navbar-link">Pricing</a>
-          </li> -->
 
         </ul>
 
@@ -131,95 +117,108 @@
   </header>
 
 
-
-
-
   <main>
     <article>
-
       <!-- 
-        - #MOVIE DETAIL
+        - #TOP RATED
       -->
 
-      <section class="movie-detail">
+      <section class="top-rated" id="top-rated-movie">
         <div class="container">
 
-          <figure class="movie-detail-banner">
-            <a href="{{$movieDetails['homepage']}}" target="_blank">
-              <img src="{{ 'https://image.tmdb.org/t/p/w500' . $movieDetails['poster_path'] }}" alt="poster">
-            </a>
-          </figure>
+          <p class="section-subtitle">Bookmarks</p>
 
-          <div class="movie-detail-content">
+          <h2 class="h2 section-title border-b-4">Your All Bookmarks, {{ Auth::user()->name }}</h2>
 
-            <p class="detail-subtitle">{{ $movieDetails['tagline'] }}</p>
+          @php
+            $foundBookmarks = false; 
+          @endphp
+      <ul class="movies-list">
+        @foreach($allBookmarks as $getId) 
+          @if($getId->name_user === Auth::user()->name)
+          @foreach(getMovieByArray([$getId->item_id]) as $movie)
+            <li>
+              <div class="movie-card">
 
-            <h1 class="h1 detail-title">
-              {{ $movieDetails['title'] }}
-            </h1>
+                <a href="{{ route('movie-details', ['id' => $movie['id']]) }}">
+                  <figure class="card-banner">
+                    <img src="{{ 'https://image.tmdb.org/t/p/w500' . $movie['poster_path'] }}" alt="poster">
+                  </figure>
+                </a>
 
-            <div class="meta-wrapper">
+                <div class="title-wrapper">
+                  @if(Auth::check())
+                    <livewire:bookmarks :id_item="$movie['id']">
+                  @endif
+                  <!-- <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 20"> <path d="M13 20a1 1 0 0 1-.64-.231L7 15.3l-5.36 4.469A1 1 0 0 1 0 19V2a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v17a1 1 0 0 1-1 1Z"/> </svg> -->
+                <a href="{{ route('movie-details', ['id' => $movie['id']]) }}">
+                    <h3 class="card-title">{{ $movie['title'] }}</h3>
+                  </a>
 
-              <!-- <div class="badge-wrapper">
-                <div class="badge badge-fill">PG 13</div>
-
-                <div class="badge badge-outline">HD</div>
-              </div> -->
-
-              <div class="ganre-wrapper">
-
-                @if(count($movieDetails['genres']) > 0)
-                    @php
-                        $num_of_items = count($movieDetails['genres']);
-                        $num_count = 0;
-                    @endphp
-                    @foreach ($movieDetails['genres'] as $singleGenre)
-                        <a class="text-sm">
-                            {{ $singleGenre['name'] }}
-                        </a>
-                        @php
-                            $num_count = $num_count + 1;
-                            if ($num_count < $num_of_items) {
-                                echo '<a class="mx-2 flex items-center">•</a>';
-                            }
-                        @endphp
-                    @endforeach
-                @endif
-              </div>
-
-              <div class="date-time">
-
-                <div>
-                  <ion-icon name="calendar-outline"></ion-icon>
-
-                  <!-- <time>{{ date('Y',strtotime($movieDetails['release_date'])) }}</time> -->
-                  <time>{{ $movieDetails['release_date'] }}</time>
+                  <time>{{ date('Y',strtotime($movie['release_date'])) }}</time>
                 </div>
 
-                <div>
-                  <ion-icon name="time-outline"></ion-icon>
+                <div class="card-meta">
+                  <div class="badge badge-outline">
+                    <?php
+                      $inject_byId = getMovieById($movie['id']);
+                      echo $inject_byId['status'];
+                      ?>
+                  </div>
 
-                  <time datetime="PT115M">{{ $movieDetails['runtime'] }} min</time>
+                  <div class="duration">
+                    <ion-icon name="time-outline"></ion-icon>
+
+                    <!-- <time datetime="PT122M">{{ 'https://api.themoviedb.org/3/movie/' . $movie['id'] }} min</time> -->
+                    <!-- TODO -->
+                    <!-- on popular endpoint wasnt has a runtime / duration property -->
+                    <!-- just one way to get is just inject by id -->
+                    
+                    <time datetime="PT122M">
+                    <?php
+                      echo $inject_byId['runtime'];
+                      ?>
+                    min</time>
+
+                  </div>
+
+                  <div class="rating">
+                    <ion-icon name="star"></ion-icon>
+
+                    <!-- <data>{{ $movie['vote_average'] }}</data> -->
+                    <data>{{ number_format($movie['vote_average'], 2) }}</data>
+
+                    
+                  </div>
                 </div>
 
               </div>
+              @php
+                $foundBookmarks = true;
+              @endphp
+            </li>
+          @endforeach
+          @endif
+        @endforeach
+      </ul>
 
+      @if(!$foundBookmarks)
+        <li>
+          <div class="flex items-center justify-center h-full pb-32">
+            <div class="text-yellow-500 text-3xl mt-24">
+              @php
+              echo 'sedih bat gk ada :('
+              @endphp
             </div>
-
-            <p class="storyline">
-              {{ $movieDetails['overview'] }}
-            </p>
-            <!-- <p>status: {{ $movieDetails['status'] }}</p> -->
-
           </div>
+        </li>
+        @endif
+
 
         </div>
       </section>
 
-
-
-
-
+    </article>
   </main>
 
 
@@ -232,73 +231,12 @@
 
   <footer class="footer">
 
-    <div class="footer-top">
-      <div class="container">
-
-
-        <div class="quicklink-wrapper">
-
-          <ul class="quicklink-list">
-
-            <li>
-              <a href="#" class="quicklink-link">Faq</a>
-            </li>
-
-            <li>
-              <a href="#" class="quicklink-link">Help center</a>
-            </li>
-
-            <li>
-              <a href="#" class="quicklink-link">Terms of use</a>
-            </li>
-
-            <li>
-              <a href="#" class="quicklink-link">Privacy</a>
-            </li>
-
-          </ul>
-
-          <ul class="social-list">
-
-            <li>
-              <a href="#" class="social-link">
-                <ion-icon name="logo-facebook"></ion-icon>
-              </a>
-            </li>
-
-            <li>
-              <a href="#" class="social-link">
-                <ion-icon name="logo-twitter"></ion-icon>
-              </a>
-            </li>
-
-            <li>
-              <a href="#" class="social-link">
-                <ion-icon name="logo-pinterest"></ion-icon>
-              </a>
-            </li>
-
-            <li>
-              <a href="#" class="social-link">
-                <ion-icon name="logo-linkedin"></ion-icon>
-              </a>
-            </li>
-
-          </ul>
-
-        </div>
-
-      </div>
-    </div>
-
     <div class="footer-bottom">
       <div class="container">
 
         <p class="copyright">
           &copy; 2023 <a href="#">Paung</a>. All Rights Reserved
         </p>
-
-        <img src="./assets/images/footer-bottom-img.png" alt="Online banking companies logo" class="footer-bottom-img">
 
       </div>
     </div>
@@ -331,7 +269,6 @@
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
 </body>
 
 </html>

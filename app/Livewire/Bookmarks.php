@@ -9,14 +9,14 @@ use Livewire\Component;
 class Bookmarks extends Component
 {
     public $isClicked = false;
-    public $item_id;
+    public $id_item;
 
-    public function mount($item_id)
+    public function mount($id_item)
     {
-        $this->$item_id = $item_id;
+        $this->id_item = $id_item;
 
         $this->isClicked = ModelsBookmarks::where('name_user', Auth::user()->name)
-            ->where('item_id', $this->item_id)
+            ->where('item_id', $this->id_item)
             ->exists();
     }
 
@@ -29,13 +29,13 @@ class Bookmarks extends Component
         if ($this->isClicked) {
             // if alr exist database, gonna removed it from database
             ModelsBookmarks::where('name_user', Auth::user()->name)
-                ->where('item_id', $this->item_id)
+                ->where('item_id', $this->id_item)
                 ->delete();
         } else {
             // if not exist on database, add to the database
             $addBookmarks = new ModelsBookmarks([
                 'name_user' => Auth::user()->name,
-                'item_id' => $this->item_id,
+                'item_id' => $this->id_item,
             ]);
 
             $addBookmarks->save();
