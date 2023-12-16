@@ -60,3 +60,23 @@ function getMovieByArray($ids){
 
   return $movies;
 }
+
+function getTvByArray($ids){
+  $client =  new \GuzzleHttp\Client();
+
+  $tvs = [];
+
+  foreach($ids as $id){
+    $response = $client->request('GET', config('services.tmdb.endpoint') . 'tv/' . $id . '?include_adult=false&language=en-US' . '&api_key=' .  config('services.tmdb.api'), [
+      'headers' => [
+        'Authorization' => config('servies.tmdb.auth'),
+        'accept' => 'application/json',
+      ],
+    ]);
+
+    $data = json_decode($response->getBody(), true);
+    $tvs[] = $data;
+  }
+
+  return $tvs;
+}
