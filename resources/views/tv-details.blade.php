@@ -154,6 +154,9 @@
 
           <div class="movie-detail-content">
             <!-- tagline -->
+            <!-- @if(Auth::check())
+              <livewire:bookmarks :id_item="$tvDetails['id']">
+            @endif -->
             <p class="detail-subtitle">{{ $tvDetails['tagline'] }}</p>
 
             <h1 class="h1 detail-title">

@@ -624,6 +624,9 @@
                 </a>
 
                 <div class="title-wrapper">
+                  <!-- @if(Auth::check())
+                    <livewire:bookmarks :id_item="$tvShow['id']">
+                  @endif -->
                   <a href="{{ route('tv-details', ['id' => $tvShow['id']]) }}">
                     <h3 class="card-title">{{$tvShow['name']}}</h3>
                   </a>
