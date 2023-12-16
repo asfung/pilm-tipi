@@ -1,4 +1,3 @@
-use Illuminate\Support\Facades\Http;
 <!DOCTYPE html>
 <html lang="en">
 
@@ -96,12 +95,23 @@ use Illuminate\Support\Facades\Http;
           </li>
 
           <!-- just authenticated user can access -->
+          @if(Auth::check())
           <li>
             <a href="#tv-series" class="navbar-link">Tv Show</a>
           </li>
+
           <li>
-            <a href="#tv-series" class="navbar-link" title="Coming Soon">Bookmarks</a>
+            <a href="/user/bookmarks" class="navbar-link">Bookmarks</a>
           </li>
+          @else
+          <li>
+            <a href="/login" class="navbar-link">Tv Show</a>
+          </li>
+
+          <li>
+            <a href="/login" class="navbar-link">Bookmarks</a>
+          </li>
+          @endif
 
           <!-- <li>
             <a href="#" class="navbar-link">Web Series</a>
@@ -501,9 +511,9 @@ use Illuminate\Support\Facades\Http;
       <section class="top-rated" id="top-rated-movie">
         <div class="container">
 
-          <p class="section-subtitle">Online Streaming</p>
+          <p class="section-subtitle">Movie</p>
 
-          <h2 class="h2 section-title">Top Rated Movies</h2>
+          <h2 class="h2 section-title">Popular Movies</h2>
 
 
           <ul class="movies-list">
@@ -528,6 +538,10 @@ use Illuminate\Support\Facades\Http;
                 </p> -->
                 
                 <div class="title-wrapper">
+                  @if(Auth::check())
+                    <livewire:bookmarks :id_item="$movie['id']">
+                  @endif
+                  <!-- <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 20"> <path d="M13 20a1 1 0 0 1-.64-.231L7 15.3l-5.36 4.469A1 1 0 0 1 0 19V2a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v17a1 1 0 0 1-1 1Z"/> </svg> -->
                 <a href="{{ route('movie-details', ['id' => $movie['id']]) }}">
                     <h3 class="card-title">{{ $movie['title'] }}</h3>
                   </a>
@@ -538,8 +552,8 @@ use Illuminate\Support\Facades\Http;
                 <div class="card-meta">
                   <div class="badge badge-outline">
                     <?php
-                      $get_data_value = $http_id_value::asJson()->get(config('services.tmdb.endpoint') . 'movie/' . $movie['id'] . '?api_key=' . config('services.tmdb.api'))->json();
-                      echo $get_data_value['status'];
+                      $inject_byId = getMovieById($movie['id']);
+                      echo $inject_byId['status'];
                       ?>
                   </div>
 
@@ -553,7 +567,7 @@ use Illuminate\Support\Facades\Http;
                     
                     <time datetime="PT122M">
                     <?php
-                      echo $get_data_value['runtime'];
+                      echo $inject_byId['runtime'];
                       ?>
                     min</time>
 
@@ -593,7 +607,7 @@ use Illuminate\Support\Facades\Http;
 
           <p class="section-subtitle">Best TV Series</p>
 
-          <h2 class="h2 section-title">World Best TV Series</h2>
+          <h2 class="h2 section-title">Trending TV Series</h2>
 
           <ul class="movies-list">
 
@@ -618,12 +632,23 @@ use Illuminate\Support\Facades\Http;
                 </div>
 
                 <div class="card-meta">
-                  <div class="badge badge-outline">2K</div>
+                  <div class="badge badge-outline">
+                    <?php
+                      $inject_tv_byId = getTvById($tvShow['id']);
+                      echo $inject_tv_byId['status'];
+                      ?>
+                  </div>
 
                   <div class="duration">
                     <ion-icon name="time-outline"></ion-icon>
 
-                    <time datetime="PT47M">47 min</time>
+                    <time datetime="PT47M">
+                    <?php
+                      foreach($inject_tv_byId['episode_run_time'] as $time) {
+                        echo $time . ",";
+                      }
+                    ?>  
+                    min</time>
                   </div>
 
                   <div class="rating">
@@ -793,8 +818,8 @@ use Illuminate\Support\Facades\Http;
 
   <footer class="footer">
 
-    <div class="footer-top">
-      <div class="container">
+    <!-- <div class="footer-top"> -->
+      <!-- <div class="container"> -->
 
         <!-- <div class="footer-brand-wrapper">
 
@@ -830,7 +855,7 @@ use Illuminate\Support\Facades\Http;
 
         <!-- <div class="divider"></div> -->
 
-        <div class="quicklink-wrapper">
+        <!-- <div class="quicklink-wrapper">
 
           <ul class="quicklink-list">
 
@@ -883,7 +908,7 @@ use Illuminate\Support\Facades\Http;
         </div>
 
       </div>
-    </div>
+    </div> -->
 
     <div class="footer-bottom">
       <div class="container">

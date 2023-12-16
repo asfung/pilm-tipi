@@ -25,7 +25,7 @@ class MoviesTvShowsController extends Controller
           // tv shows
         // $client = new \GuzzleHttp\Client();
 
-        $responseTv = $client->request('GET', config('services.tmdb.endpoint') . '/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc' . '&api_key=' . config('services.tmdb.api'), [
+        $responseTv = $client->request('GET', config('services.tmdb.endpoint') . 'trending/tv/week?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc' . '&api_key=' . config('services.tmdb.api'), [
               'headers' => [
               'Authorization' => config('servies.tmdb.auth'),
               'accept' => 'application/json',

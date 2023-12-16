@@ -64,7 +64,7 @@
       <div class="overlay" data-overlay></div>
 
       <a href="/" class="logo">
-        <p class="hero-subtitle">Pilem Lah | {{Auth::user()->name}}</p>
+        <p class="hero-subtitle">Pilem Lah</p>
       </a>
 
       <div class="header-actions">
@@ -116,7 +116,7 @@
           </li>
 
           <li>
-            <a href="#" class="navbar-link">Bookmarks</a>
+            <a href="/user/bookmarks" class="navbar-link">Bookmarks</a>
           </li>
 <!-- 
           <li>
@@ -152,6 +152,7 @@
 
           <div class="movie-detail-content">
 
+            <livewire:bookmarks :id_item="$movieDetails['id']">
             <p class="detail-subtitle">{{ $movieDetails['tagline'] }}</p>
 
             <h1 class="h1 detail-title">
