@@ -73,12 +73,12 @@
         </button> -->
         <livewire:search-dropdown :width="72">
 
-        <!-- <button class="btn btn-primary">Sign in</button> -->
-        @if(Auth::check())
-        <a href="/logout"><button class="btn btn-primary">Logout</button></a>
-        @else
-        <a href="/login"><button class="btn btn-primary">Login</button></a>
-        @endif
+          <!-- <button class="btn btn-primary">Sign in</button> -->
+          @if(Auth::check())
+          <a href="/logout"><button class="btn btn-primary">Logout</button></a>
+          @else
+          <a href="/login"><button class="btn btn-primary">Login</button></a>
+          @endif
 
       </div>
 
@@ -231,19 +231,19 @@
 
           <div class="slider card-slider" data-slider>
 
-          <div class="slider-container" data-slider-container>
+            <div class="slider-container" id="slider-c" data-slider-container>
 
-            @php
-            $sortedSeasons = collect($tvDetails['seasons'])
+              @php
+              $sortedSeasons = collect($tvDetails['seasons'])
               ->filter(function ($season) {
-                  return $season['air_date'] !== null;
+              return $season['air_date'] !== null;
               })
               ->sortByDesc('air_date')
               ->values()
               ->all();
-            @endphp
+              @endphp
 
-            @foreach($sortedSeasons as $season)
+              @foreach($sortedSeasons as $season)
               <div class="slider-item">
                 <div class="card img-holder" style="--width: 500; --height: 750;">
                   <img src="{{ 'https://image.tmdb.org/t/p/w500' . $season['poster_path']}}" width="500" height="750" alt="" class="img-cover">
@@ -252,9 +252,9 @@
                   <p class="card-title" style="color: white; margin-right:120px;">{{ $season['name'] }}</p>
                   <p class="rating" style="color: yellow;">{{ $season['episode_count'] }} Eps</p>
                 </div>
-                  <p class="storyline">{{$season['air_date']}}</p>
+                <p class="storyline">{{$season['air_date']}}</p>
               </div>
-            @endforeach
+              @endforeach
 
             </div>
 
@@ -385,6 +385,20 @@
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+<!-- mousewheel slider animation  -->
+  <script>
+    const sliderContainer = document.getElementById('slider-c');
+
+    sliderContainer.addEventListener('wheel', (event) => {
+      event.preventDefault();
+
+      const scrollDelta = event.deltaY || event.detail || event.wheelDelta;
+
+      sliderContainer.scrollLeft += scrollDelta * scrollSensitivity;
+      sliderContainer.style.transition = 'transform 0.5s ease';
+    });
+  </script>
 </body>
 
 </html>

@@ -1,4 +1,3 @@
-use Illuminate\Support\Facades\Http;
 <!DOCTYPE html>
 <html lang="en">
 
@@ -100,7 +99,7 @@ use Illuminate\Support\Facades\Http;
             <a href="#tv-series" class="navbar-link">Tv Show</a>
           </li>
           <li>
-            <a href="#tv-series" class="navbar-link" title="Coming Soon">Bookmarks</a>
+            <a href="/user/bookmarks" class="navbar-link" title="Coming Soon">Bookmarks</a>
           </li>
 
           <!-- <li>
@@ -528,6 +527,8 @@ use Illuminate\Support\Facades\Http;
                 </p> -->
                 
                 <div class="title-wrapper">
+                  <livewire:bookmarks :id_movie="$movie['id']">
+                  <!-- <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 20"> <path d="M13 20a1 1 0 0 1-.64-.231L7 15.3l-5.36 4.469A1 1 0 0 1 0 19V2a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v17a1 1 0 0 1-1 1Z"/> </svg> -->
                 <a href="{{ route('movie-details', ['id' => $movie['id']]) }}">
                     <h3 class="card-title">{{ $movie['title'] }}</h3>
                   </a>
@@ -538,8 +539,8 @@ use Illuminate\Support\Facades\Http;
                 <div class="card-meta">
                   <div class="badge badge-outline">
                     <?php
-                      $get_data_value = $http_id_value::asJson()->get(config('services.tmdb.endpoint') . 'movie/' . $movie['id'] . '?api_key=' . config('services.tmdb.api'))->json();
-                      echo $get_data_value['status'];
+                      $inject_byId = getMovieById($movie['id']);
+                      echo $inject_byId['status'];
                       ?>
                   </div>
 
@@ -553,7 +554,7 @@ use Illuminate\Support\Facades\Http;
                     
                     <time datetime="PT122M">
                     <?php
-                      echo $get_data_value['runtime'];
+                      echo $inject_byId['runtime'];
                       ?>
                     min</time>
 
