@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('bookmarks', function (Blueprint $table) {
             $table->id();
             $table->string('name_user');
-            $table->integer('id_movie');
+            $table->integer('item_id');
             $table->timestamps();
         });
     }
