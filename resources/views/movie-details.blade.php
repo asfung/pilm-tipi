@@ -214,7 +214,34 @@
 
           </div>
 
+
         </div>
+
+        <div class="container" style="color: yellow; padding-top:4rem;">
+          <h1 style="font-size:40px; -webkit-text-stroke: 1px black; font-weight:bold;">Cast</h1>
+        </div>
+
+        <!-- TODO make it beauty lel! -->
+
+        <div class="container">
+          <div class="cast-content text-white">
+            @php
+              $i = 0;
+            @endphp
+            @foreach($movieDetails['credits']['cast'] as $cast)
+              <figure class="movie-detail-banner">
+                <img src="https://image.tmdb.org/t/p/w500{{$cast['profile_path']}}" alt="poster">
+              </figure>
+            @php
+              $i++;
+              if($i === 7){
+                break;
+              }
+            @endphp
+            @endforeach
+          </div>
+        </div>
+
       </section>
 
 
