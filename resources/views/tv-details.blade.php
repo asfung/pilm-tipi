@@ -156,10 +156,6 @@
             @if(Auth::check())
               <livewire:bookmarks :id_item="$tvDetails['id']" :item_type="'tv'">
             @endif
-            <!-- tagline -->
-            <!-- @if(Auth::check())
-              <livewire:bookmarks :id_item="$tvDetails['id']">
-            @endif -->
             <p class="detail-subtitle">{{ $tvDetails['tagline'] }}</p>
 
             <h1 class="h1 detail-title">
