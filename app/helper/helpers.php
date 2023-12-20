@@ -95,4 +95,3 @@ function getTvByArray($ids){
 
   return $tvs;
 }
->>>>>>> dev
