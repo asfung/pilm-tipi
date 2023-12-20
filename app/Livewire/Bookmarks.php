@@ -10,13 +10,16 @@ class Bookmarks extends Component
 {
     public $isClicked = false;
     public $id_item;
+    public $item_type;
 
-    public function mount($id_item)
+    public function mount($id_item, $item_type)
     {
         $this->id_item = $id_item;
+        $this->item_type = $item_type;
 
         $this->isClicked = ModelsBookmarks::where('name_user', Auth::user()->name)
             ->where('item_id', $this->id_item)
+            ->where('item_type', $this->item_type)
             ->exists();
     }
 
@@ -30,12 +33,14 @@ class Bookmarks extends Component
             // if alr exist database, gonna removed it from database
             ModelsBookmarks::where('name_user', Auth::user()->name)
                 ->where('item_id', $this->id_item)
+                ->where('item_type', $this->item_type)
                 ->delete();
         } else {
             // if not exist on database, add to the database
             $addBookmarks = new ModelsBookmarks([
                 'name_user' => Auth::user()->name,
                 'item_id' => $this->id_item,
+                'item_type' => $this->item_type,
             ]);
 
             $addBookmarks->save();

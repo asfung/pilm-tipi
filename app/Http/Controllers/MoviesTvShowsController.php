@@ -58,7 +58,7 @@ class MoviesTvShowsController extends Controller
     public function tvDetail($id){
       $client =  new \GuzzleHttp\Client();
 
-      $response = $client->request('GET', config('services.tmdb.endpoint') . 'tv/' . $id . '?include_adult=false&language=en-US' . '&api_key=' .  config('services.tmdb.api'), [
+      $response = $client->request('GET', config('services.tmdb.endpoint') . 'tv/' . $id . '?language=en-US' . '&api_key=' .  config('services.tmdb.api'), [
         'headers' => [
           'Authorization' => config('servies.tmdb.auth'),
           'accept' => 'application/json',
