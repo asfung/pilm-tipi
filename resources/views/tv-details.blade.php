@@ -107,15 +107,15 @@
           </li>
 
           <li>
-            <a href="#" class="navbar-link">Movie</a>
+            <a href="/#top-rated-movie" class="navbar-link">Movie</a>
           </li>
 
           <li>
-            <a href="#" class="navbar-link">Tv Show</a>
+            <a href="/#tv-series" class="navbar-link">Tv Show</a>
           </li>
 
           <li>
-            <a href="#" class="navbar-link">Bookmarks</a>
+            <a href="/user/bookmarks" class="navbar-link">Bookmarks</a>
           </li>
 
           <!-- <li>
@@ -153,6 +153,9 @@
           </figure>
 
           <div class="movie-detail-content">
+            @if(Auth::check())
+              <livewire:bookmarks :id_item="$tvDetails['id']" :item_type="'tv'">
+            @endif
             <!-- tagline -->
             <p class="detail-subtitle">{{ $tvDetails['tagline'] }}</p>
 

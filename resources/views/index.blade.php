@@ -539,7 +539,7 @@
                 
                 <div class="title-wrapper">
                   @if(Auth::check())
-                    <livewire:bookmarks :id_item="$movie['id']">
+                    <livewire:bookmarks :id_item="$movie['id']" :item_type="'movie'">
                   @endif
                   <!-- <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 20"> <path d="M13 20a1 1 0 0 1-.64-.231L7 15.3l-5.36 4.469A1 1 0 0 1 0 19V2a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v17a1 1 0 0 1-1 1Z"/> </svg> -->
                 <a href="{{ route('movie-details', ['id' => $movie['id']]) }}">
@@ -624,6 +624,9 @@
                 </a>
 
                 <div class="title-wrapper">
+                  @if(Auth::check())
+                    <livewire:bookmarks :id_item="$tvShow['id']" :item_type="'tv'">
+                  @endif
                   <a href="{{ route('tv-details', ['id' => $tvShow['id']]) }}">
                     <h3 class="card-title">{{$tvShow['name']}}</h3>
                   </a>

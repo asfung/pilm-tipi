@@ -22,7 +22,7 @@
                 @endforeach
                 @foreach($searchResults_tv['results'] as $result)
                 <li class="border-b border-gray-700 text-sm">
-                    <a href="{{ route('movie-details', $result['id']) }}" class="hover:bg-gray-700 px-2 py-2 text-yellow-400 flex item-center">
+                    <a href="{{ route('tv-details', $result['id']) }}" class="hover:bg-gray-700 px-2 py-2 text-yellow-400 flex item-center">
                     @if($result['poster_path'])
                         <img src="https://image.tmdb.org/t/p/w92{{ $result['poster_path'] }}" class="w-18 rounded" alt="poster">
                     @else

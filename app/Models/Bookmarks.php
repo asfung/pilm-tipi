@@ -10,6 +10,7 @@ class Bookmarks extends Model
     use HasFactory;
     protected $fillable = [
         'name_user',
-        'item_id'
+        'item_id',
+        'item_type'
     ];
 }

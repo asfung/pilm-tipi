@@ -152,7 +152,9 @@
 
           <div class="movie-detail-content">
 
-            <livewire:bookmarks :id_item="$movieDetails['id']">
+            @if(Auth::check())
+              <livewire:bookmarks :id_item="$movieDetails['id']" :item_type="'movie'">
+            @endif
             <p class="detail-subtitle">{{ $movieDetails['tagline'] }}</p>
 
             <h1 class="h1 detail-title">
@@ -221,17 +223,21 @@
           <h1 style="font-size:40px; -webkit-text-stroke: 1px black; font-weight:bold;">Cast</h1>
         </div>
 
-        <!-- TODO make it beauty lel! -->
-
-        <div class="container">
+        <!-- TODO make it the cast beauty layout lel! -->
+        <div class="cast-container">
           <div class="cast-content text-white">
             @php
               $i = 0;
             @endphp
             @foreach($movieDetails['credits']['cast'] as $cast)
-              <figure class="movie-detail-banner">
-                <img src="https://image.tmdb.org/t/p/w500{{$cast['profile_path']}}" alt="poster">
-              </figure>
+
+          <ul class="cast-list">
+            <li>
+              <div class="cast-card">
+                <img src="https://image.tmdb.org/t/p/w500{{$cast['profile_path']}}" alt="poster" width="200" height="280">
+              </div>
+            </li>
+          </ul>
             @php
               $i++;
               if($i === 7){
@@ -241,6 +247,7 @@
             @endforeach
           </div>
         </div>
+        
 
       </section>
 
