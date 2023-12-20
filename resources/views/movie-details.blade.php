@@ -234,7 +234,10 @@
           <ul class="cast-list">
             <li>
               <div class="cast-card">
-                <img src="https://image.tmdb.org/t/p/w500{{$cast['profile_path']}}" alt="poster" width="200" height="280">
+                @if($cast['profile_path'])
+                  <img src="https://image.tmdb.org/t/p/w500{{$cast['profile_path']}}" alt="poster" width="200" height="280">
+                @else
+                @endif
               </div>
             </li>
           </ul>
