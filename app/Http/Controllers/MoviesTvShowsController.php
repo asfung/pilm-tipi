@@ -49,10 +49,22 @@ class MoviesTvShowsController extends Controller
       ],
     ]);
 
+    $response_trailer = $client->request('GET', config('services.tmdb.endpoint') . 'movie/' . $id . '/videos?include_adult=false&language=en-US&append_to_response=credits' . '&api_key=' . config('services.tmdb.api'), [
+      'headers' => [
+        'Authorization' => config('servies.tmdb.auth'),
+        'accept' => 'application/json',
+      ],
+    ]);
+
+
+
     
     // $data_film = json_decode($response->getBody(), true);
         
-    return view('movie-details', ['movieDetails' => json_decode($response->getBody(), true)]);
+    return view('movie-details', [
+      'movieDetails' => json_decode($response->getBody(), true),
+      'movieTrailers' => json_decode($response_trailer->getBody(), true)
+    ]);
     }
 
     public function tvDetail($id){
