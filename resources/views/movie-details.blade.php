@@ -157,6 +157,15 @@
             @endif
             <p class="detail-subtitle">{{ $movieDetails['tagline'] }}</p>
 
+            <div class="movie-trailer">
+              @foreach($movieTrailers['results'] as $trailer) 
+              @if($trailer['type'] === "Trailer" && $trailer['name'] === "Official Trailer")
+                <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/{{ $trailer['key'] }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              @endif
+              @endforeach
+            </div> 
+
+            
             <h1 class="h1 detail-title">
               {{ $movieDetails['title'] }}
             </h1>
@@ -231,16 +240,13 @@
             @endphp
             @foreach($movieDetails['credits']['cast'] as $cast)
 
-            <ul class="cast-list">
-              <li>
-                <div class="cast-card">
-                  @if($cast['profile_path'])
-                    <img src="https://image.tmdb.org/t/p/w500{{$cast['profile_path']}}" alt="poster" width="200" height="280">
-                  @else
-                  @endif
-                </div>
-              </li>
-            </ul>
+          <ul class="cast-list">
+            <li>
+              <div class="cast-card">
+                <img src="https://image.tmdb.org/t/p/w500{{$cast['profile_path']}}" alt="poster" width="200" height="280">
+              </div>
+            </li>
+          </ul>
             @php
               $i++;
               if($i === 7){
