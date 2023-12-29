@@ -9,11 +9,7 @@
 
 ## Overview
 
-
-https://github.com/asfung/pilm-tipi/assets/129583516/8a329789-20e7-4a50-87d7-420173d35936
-
-
-<p style="color: red; font-weight: bold;">Video Was Updated From another branch</p>
+<p style="color: red; font-weight: bold;">Soon</p>
 
 ## at this source
 
