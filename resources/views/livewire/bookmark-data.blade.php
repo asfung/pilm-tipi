@@ -23,7 +23,6 @@ $foundBookmarks = false;
                     <a href="{{ route('movie-details', ['id' => $movie['id']]) }}">
                         <h3 class="card-title">{{ $movie['title'] }}</h3>
                     </a>
-
                     <time>{{ date('Y',strtotime($movie['release_date'])) }}</time>
             </div>
 
@@ -47,17 +46,14 @@ $foundBookmarks = false;
                         <?php
                         echo $inject_byId['runtime'];
                         ?>
-                        min</time>
-
+                        min
+                    </time>
                 </div>
 
                 <div class="rating">
                     <ion-icon name="star"></ion-icon>
-
                     <!-- <data>{{ $movie['vote_average'] }}</data> -->
                     <data>{{ number_format($movie['vote_average'], 2) }}</data>
-
-
                 </div>
             </div>
 
@@ -112,8 +108,8 @@ $foundBookmarks = false;
                             echo $time . ",";
                         }
                         ?>
-                        min</time>
-
+                        min
+                    </time>
                 </div>
 
                 <div class="rating">
