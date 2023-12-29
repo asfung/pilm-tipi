@@ -37,7 +37,6 @@ $foundBookmarks = false;
                 <div class="duration">
                     <ion-icon name="time-outline"></ion-icon>
 
-                    <!-- <time datetime="PT122M">{{ 'https://api.themoviedb.org/3/movie/' . $movie['id'] }} min</time> -->
                     <!-- TODO -->
                     <!-- on popular endpoint wasnt has a runtime / duration property -->
                     <!-- just one way to get is just inject by id -->
@@ -52,7 +51,6 @@ $foundBookmarks = false;
 
                 <div class="rating">
                     <ion-icon name="star"></ion-icon>
-                    <!-- <data>{{ $movie['vote_average'] }}</data> -->
                     <data>{{ number_format($movie['vote_average'], 2) }}</data>
                 </div>
             </div>
@@ -97,7 +95,6 @@ $foundBookmarks = false;
                 <div class="duration">
                     <ion-icon name="time-outline"></ion-icon>
 
-                    <!-- <time datetime="PT122M">{{ 'https://api.themoviedb.org/3/movie/' . $movie['id'] }} min</time> -->
                     <!-- TODO -->
                     <!-- on popular endpoint wasnt has a runtime / duration property -->
                     <!-- just one way to get is just inject by id -->
@@ -115,7 +112,6 @@ $foundBookmarks = false;
                 <div class="rating">
                     <ion-icon name="star"></ion-icon>
 
-                    <!-- <data>{{ $movie['vote_average'] }}</data> -->
                     <data>{{ number_format($tv['vote_average'], 2) }}</data>
 
 
