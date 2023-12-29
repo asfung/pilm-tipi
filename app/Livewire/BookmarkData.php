@@ -22,18 +22,16 @@ class BookmarkData extends Component
 
         // HTML;
 
-
         $output = '<ul class="movies-list">';
         $datas = Bookmarks::where('name_user', Auth::user()->name)->get();
 
         if(isset($datas)){
         foreach ($datas as $data) {
-            $output .= <<<HTML
+        $output .= <<<HTML
         <!-- return <<<HTML -->
         <!-- <ul class="movies-list"> -->
         <li>
             <div class="movie-card">
-
                 <a>
                     <figure class="card-banner">
                         <img src="/assets/images/no-image.jpg" alt="poster">
@@ -70,12 +68,11 @@ class BookmarkData extends Component
             </div>
         </li>
         <!-- </ul> -->
-    HTML;
+        HTML;
         }
         }
 
         $output .= '</ul>';
-
         return $output;
     }
 }
