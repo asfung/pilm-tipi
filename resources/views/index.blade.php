@@ -187,6 +187,20 @@
               Kumpulan <strong>Pilem</strong>, tipi show.
             </h1>
 
+            <!-- ngetrigger lazy loading -->
+            <div class="w-60 h-24 border-2 rounded-md mx-auto mt-20" hidden>
+              <div class="flex animate-pulse flex-row items-center h-full justify-center space-x-5">
+                <div class="w-12 bg-gray-300 h-12 rounded-full ">
+                </div>
+                    <div class="flex flex-col space-y-3">
+                    <div class="w-36 bg-gray-300 h-6 rounded-md ">
+                    </div>
+                    <div class="w-24 bg-gray-300 h-6 rounded-md ">
+                    </div>
+                </div>
+              </div>
+            </div>
+
             <div class="meta-wrapper">
 
               <!-- <div class="badge-wrapper">
@@ -515,79 +529,7 @@
 
           <h2 class="h2 section-title">Popular Movies</h2>
 
-
-          <ul class="movies-list">
-
-            @foreach($data_film['results'] as $movie)
-
-            <li>
-              <div class="movie-card">
-
-                <a href="{{ route('movie-details', ['id' => $movie['id']]) }}">
-                  <figure class="card-banner">
-                    <img src="{{ 'https://image.tmdb.org/t/p/w500' . $movie['poster_path'] }}" alt="poster">
-                  </figure>
-                </a>
-
-                <!-- troubleshooting -->
-                <!-- <p style="color: white;">
-                <?php 
-                // dump($get_data_value = Illuminate\Support\Facades\Http::asJson()->get(config('services.tmdb.endpoint') . 'movie/' . $movie['id'] . '?api_key=' . config('services.tmdb.api'))->json());
-                // echo $get_data_value['title'];
-                ?>
-                </p> -->
-                
-                <div class="title-wrapper">
-                  @if(Auth::check())
-                    <livewire:bookmarks :id_item="$movie['id']" :item_type="'movie'">
-                  @endif
-                  <!-- <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 20"> <path d="M13 20a1 1 0 0 1-.64-.231L7 15.3l-5.36 4.469A1 1 0 0 1 0 19V2a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v17a1 1 0 0 1-1 1Z"/> </svg> -->
-                <a href="{{ route('movie-details', ['id' => $movie['id']]) }}">
-                    <h3 class="card-title">{{ $movie['title'] }}</h3>
-                  </a>
-
-                  <time>{{ date('Y',strtotime($movie['release_date'])) }}</time>
-                </div>
-
-                <div class="card-meta">
-                  <div class="badge badge-outline">
-                    <?php
-                      $inject_byId = getMovieById($movie['id']);
-                      echo $inject_byId['status'];
-                      ?>
-                  </div>
-
-                  <div class="duration">
-                    <ion-icon name="time-outline"></ion-icon>
-
-                    <!-- <time datetime="PT122M">{{ 'https://api.themoviedb.org/3/movie/' . $movie['id'] }} min</time> -->
-                    <!-- TODO -->
-                    <!-- on popular endpoint wasnt has a runtime / duration property -->
-                    <!-- just one way to get is just inject by id -->
-                    
-                    <time datetime="PT122M">
-                    <?php
-                      echo $inject_byId['runtime'];
-                      ?>
-                    min</time>
-
-                  </div>
-
-                  <div class="rating">
-                    <ion-icon name="star"></ion-icon>
-
-                    <!-- <data>{{ $movie['vote_average'] }}</data> -->
-                    <data>{{ number_format($movie['vote_average'], 2) }}</data>
-
-                    
-                  </div>
-                </div>
-
-              </div>
-            </li>
-            @endforeach
-
-          </ul>
+           <livewire:popular-movie lazy="on-load"/> 
 
         </div>
       </section>
@@ -609,62 +551,7 @@
 
           <h2 class="h2 section-title">Trending TV Series</h2>
 
-          <ul class="movies-list">
-
-
-            @foreach($tvShows['results'] as $tvShow)
-
-            <li>
-              <div class="movie-card">
-
-                <a href="{{ route('tv-details', ['id' => $tvShow['id']]) }}">
-                  <figure class="card-banner">
-                    <img src="{{ 'https://image.tmdb.org/t/p/w500' . $tvShow['poster_path'] }}" alt="tvshow">
-                  </figure>
-                </a>
-
-                <div class="title-wrapper">
-                  @if(Auth::check())
-                    <livewire:bookmarks :id_item="$tvShow['id']" :item_type="'tv'">
-                  @endif
-                  <a href="{{ route('tv-details', ['id' => $tvShow['id']]) }}">
-                    <h3 class="card-title">{{$tvShow['name']}}</h3>
-                  </a>
-
-                  <time datetime="">{{ date('Y',strtotime($tvShow['first_air_date'])) }}</time>
-                </div>
-
-                <div class="card-meta">
-                  <div class="badge badge-outline">
-                    <?php
-                      $inject_tv_byId = getTvById($tvShow['id']);
-                      echo $inject_tv_byId['status'];
-                      ?>
-                  </div>
-
-                  <div class="duration">
-                    <ion-icon name="time-outline"></ion-icon>
-
-                    <time datetime="PT47M">
-                    <?php
-                      foreach($inject_tv_byId['episode_run_time'] as $time) {
-                        echo $time . ",";
-                      }
-                    ?>  
-                    min</time>
-                  </div>
-
-                  <div class="rating">
-                    <ion-icon name="star"></ion-icon>
-
-                    <data>{{ $tvShow['vote_average'] }}</data>
-                  </div>
-                </div>
-
-              </div>
-            </li>
-
-            @endforeach
+          <livewire:trending-tvs lazy="on-load"/>
 
             <!-- <li>
               <div class="movie-card">
@@ -774,7 +661,6 @@
               </div>
             </li> -->
 
-          </ul>
 
         </div>
       </section>
