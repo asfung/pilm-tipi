@@ -9,9 +9,8 @@
 
 ## Overview
 
-https://github.com/Straufer/pilm-tipi/assets/129583516/11728c06-5273-4175-90a0-b93d33bac258
 
-<p style="color: red; font-weight: bold;">Video Was Updated From another branch</p>
+<p style="color: red; font-weight: bold;">Video Not Updated</p>
 
 ## at this source
 
