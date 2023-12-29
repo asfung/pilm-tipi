@@ -1,6 +1,5 @@
 <?php
 
-use App\Livewire\Bookmarks;
 use App\Models\Bookmarks as BookmarksModel;
 
 function test($x){
