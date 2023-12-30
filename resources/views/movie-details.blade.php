@@ -29,7 +29,7 @@
 <style>
 
   .movie-detail{
-    background: url("https://image.tmdb.org/t/p/w500{{ $movieDetails['poster_path'] }}") no-repeat;
+    background: url("https://image.tmdb.org/t/p/original{{ $movieDetails['poster_path'] }}") no-repeat;
     background-size: cover;
     background-position: center;
     padding-top: 160px;
@@ -146,7 +146,7 @@
 
           <figure class="movie-detail-banner">
             <a href="{{$movieDetails['homepage']}}" target="_blank">
-              <img src="{{ 'https://image.tmdb.org/t/p/w500' . $movieDetails['poster_path'] }}" alt="poster">
+              <img src="{{ 'https://image.tmdb.org/t/p/original' . $movieDetails['poster_path'] }}" alt="poster">
             </a>
           </figure>
 
@@ -243,7 +243,7 @@
           <ul class="cast-list">
             <li>
               <div class="cast-card">
-                <img src="https://image.tmdb.org/t/p/w500{{$cast['profile_path']}}" alt="poster" width="200" height="280">
+                <img src="https://image.tmdb.org/t/p/original{{$cast['profile_path']}}" alt="poster" width="200" height="280">
               </div>
             </li>
           </ul>

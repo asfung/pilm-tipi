@@ -497,18 +497,6 @@ body.active { overflow: hidden; }
  * #HERO
 \*-----------------------------------*/
 
-.hero {
-  background: url("https://image.tmdb.org/t/p/w500/rLb2cwF3Pazuxaj0sRXQ037tGI1.jpg") no-repeat;
-  background-size: cover;
-  background-position: center;
-  min-height: 750px;
-  height: 100vh;
-  max-height: 1000px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding-block: var(--section-padding);
-}
 
 .hero-content { margin-top: 60px; }
 

@@ -26,6 +26,33 @@
   @vite('resources/css/app.css')
 </head>
 
+<style>
+.hero {
+  /* <?php $i = 0; $imageArr = []; ?>  */ /* ntah kenapa line ini di uncomment kena syntax error, but the website wasnt has any trouble*/
+
+  @foreach($data_film['results'] as $imageBackground)
+  /* CURRENT BACKGROUND : background: url("https://image.tmdb.org/t/p/original/rLb2cwF3Pazuxaj0sRXQ037tGI1.jpg") no-repeat; */
+  <?php 
+    $imageArr[] = $imageBackground['backdrop_path']; 
+    // dump($imageArr); // trouble logging => proses menangkap data dari loop dan dimasukkan ke variable array
+    shuffle($imageArr);
+    $slicingArr = array_slice($imageArr, 0, 19);
+    // dump($slicingArr); // trouble logging
+  ?>
+  background: url("https://image.tmdb.org/t/p/original{{ $slicingArr[0] }}") no-repeat;
+  @endforeach
+  background-size: cover;
+  background-position: center;
+  min-height: 750px;
+  height: 100vh;
+  max-height: 1000px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-block: var(--section-padding);
+}
+</style>
+
 <body id="top">
 
   <!-- 

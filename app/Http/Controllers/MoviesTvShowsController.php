@@ -35,7 +35,7 @@ class MoviesTvShowsController extends Controller
     
         $tvShows = json_decode($responseTv->getBody(), true);
 
-        return view('index', compact('tvShows', 'http_id_value'));
+        return view('index', compact('data_film', 'tvShows', 'http_id_value'));
 
     }
     
