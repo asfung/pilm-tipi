@@ -28,10 +28,7 @@ class PopularMovie extends Component
         return json_decode($response->getBody(), true);
         });
 
-        // FIXED but not in here
-        // $get_data_value = Http::asJson()->get(config('services.tmdb.endpoint') . 'movie/' . $data_film['results'][0]['id'] . '?api_key=' . config('services.tmdb.api'));
-
-          // tv shows
+        // tv shows
         // $client = new \GuzzleHttp\Client();
 
         $tvShows = Cache::remember('trending_tv', now()->addMinutes(60), function(){
