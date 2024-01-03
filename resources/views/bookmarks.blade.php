@@ -10,7 +10,7 @@
   <!-- 
     - favicon
   -->
-  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="http://localhost:8998/favicon.svg" type="image/svg+xml">
 
   <!-- 
     - custom css link
@@ -174,7 +174,7 @@
   <!-- 
     - custom js link
   -->
-  <script src="./assets/js/script.js"></script>
+  <script src="http://localhosst:8998/assets/js/script.js"></script>
 
   <!-- 
     - ionicon link

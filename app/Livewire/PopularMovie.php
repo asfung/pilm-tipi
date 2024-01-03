@@ -3,15 +3,21 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 
 class PopularMovie extends Component
 {
+    // #[Computed(cache:true)]
     public function render()
     {
-        $client = new \GuzzleHttp\Client();
+        // $client = new \GuzzleHttp\Client();
         $http_id_value = Http::class;
 
+        // schema caching 
+        $data_film = Cache::remember('popular_movies', now()->addMinutes(60), function() {
+        $client = new \GuzzleHttp\Client();
         $response = $client->request('GET', config('services.tmdb.endpoint') . 'movie/popular?include_adult=false&language=en-US' . '&api_key=' . config('services.tmdb.api'), [
             'headers' => [
               'Authorization' => config('servies.tmdb.auth'),
@@ -19,7 +25,9 @@ class PopularMovie extends Component
             ],
           ]);
 
-        $data_film = json_decode($response->getBody(), true);
+        // $data_film = json_decode($response->getBody(), true);
+        return json_decode($response->getBody(), true);
+        });
 
         // FIXED but not in here
         // $get_data_value = Http::asJson()->get(config('services.tmdb.endpoint') . 'movie/' . $data_film['results'][0]['id'] . '?api_key=' . config('services.tmdb.api'));
@@ -27,6 +35,8 @@ class PopularMovie extends Component
           // tv shows
         // $client = new \GuzzleHttp\Client();
 
+        $tvShows = Cache::remember('trending_tv', now()->addMinutes(60), function(){
+        $client = new \GuzzleHttp\Client();
         $responseTv = $client->request('GET', config('services.tmdb.endpoint') . 'trending/tv/week?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc' . '&api_key=' . config('services.tmdb.api'), [
               'headers' => [
               'Authorization' => config('servies.tmdb.auth'),
@@ -34,8 +44,10 @@ class PopularMovie extends Component
             ],
           ]);
 
-    
-        $tvShows = json_decode($responseTv->getBody(), true);
+        // $tvShows = json_decode($responseTv->getBody(), true);
+        return json_decode($responseTv->getBody(), true);
+        });
+
         return view('livewire.popular-movie', compact('data_film', 'tvShows'));
     }
 
