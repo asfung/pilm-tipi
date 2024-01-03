@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 
@@ -29,8 +28,6 @@ class PopularMovie extends Component
         });
 
         // tv shows
-        // $client = new \GuzzleHttp\Client();
-
         $tvShows = Cache::remember('trending_tv', now()->addMinutes(60), function(){
         $client = new \GuzzleHttp\Client();
         $responseTv = $client->request('GET', config('services.tmdb.endpoint') . 'trending/tv/week?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc' . '&api_key=' . config('services.tmdb.api'), [
