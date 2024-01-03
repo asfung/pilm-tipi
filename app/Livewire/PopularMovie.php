@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Cache;
 
 class PopularMovie extends Component
 {
-    // #[Computed(cache:true)]
     public function render()
     {
         // $client = new \GuzzleHttp\Client();
