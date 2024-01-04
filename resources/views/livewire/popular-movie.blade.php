@@ -9,14 +9,6 @@
             </figure>
         </a>
 
-        <!-- troubleshooting -->
-        <!-- <p style="color: white;">
-                <?php
-                // dump($get_data_value = Illuminate\Support\Facades\Http::asJson()->get(config('services.tmdb.endpoint') . 'movie/' . $movie['id'] . '?api_key=' . config('services.tmdb.api'))->json());
-                // echo $get_data_value['title'];
-                ?>
-                </p> -->
-
         <div class="title-wrapper">
             @if(Auth::check())
             <livewire:bookmarks :id_item="$movie['id']" :item_type="'movie'">
@@ -41,9 +33,6 @@
                 <ion-icon name="time-outline"></ion-icon>
 
                 <!-- <time datetime="PT122M">{{ 'https://api.themoviedb.org/3/movie/' . $movie['id'] }} min</time> -->
-                <!-- TODO -->
-                <!-- on popular endpoint wasnt has a runtime / duration property -->
-                <!-- just one way to get is just inject by id -->
 
                 <time datetime="PT122M">
                     <?php
@@ -58,7 +47,6 @@
 
                 <!-- <data>{{ $movie['vote_average'] }}</data> -->
                 <data>{{ number_format($movie['vote_average'], 2) }}</data>
-
 
             </div>
         </div>

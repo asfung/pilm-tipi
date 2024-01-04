@@ -52,9 +52,6 @@
 
       <div class="header-actions">
 
-        <!-- <button class="search-btn">
-          <ion-icon name="search-outline"></ion-icon>
-        </button> -->
         <livewire:search-dropdown>
 
         @if(Auth::check())
@@ -113,9 +110,6 @@
 
   <main>
     <article>
-      <!-- 
-        - #TOP RATED
-      -->
 
       <section class="top-rated" id="top-rated-movie">
         <div class="container">
