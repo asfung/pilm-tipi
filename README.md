@@ -17,5 +17,6 @@
 -   #### Bootstrap
 -   #### TMDB
 -   #### PostgreSQL
+-   #### TailwindCSS
 
 main branch,
