@@ -213,7 +213,6 @@
                 <p class="storyline">
                   {{ $movieDetails['overview'] }}
                 </p>
-                <!-- <p>status: {{ $movieDetails['status'] }}</p> -->
 
               </div>
 
