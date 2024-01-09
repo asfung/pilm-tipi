@@ -224,7 +224,6 @@
             <h1 style="font-size:40px; font-weight:bold;">Cast</h1>
           </div>
 
-
           <!-- TODO make it the cast beauty layout lel! -->
           <!-- <div class="cast-container">
           <div class="cast-content text-white">
@@ -256,13 +255,14 @@
                 <!-- <div class="mb-9">
                   <h1 class="mb-2 text-[1.75rem] font-semibold text-yellow-400">Casts</h1>
                 </div> -->
-                <div class="flex flex-wrap w-auto">
+                <div class="flex flex-wrap w-full justify-center">
                   <!-- card item -->
                   @php
                   $i = 0;
                   @endphp
                   @foreach($movieDetails['credits']['cast'] as $cast)
-                  <div class="flex flex-col mr-5 text-center mb-11 lg:mr-16">
+                  @if($cast['profile_path'] !== null)
+                  <div class="flex flex-col mr-1 text-center mb-11"> <!-- jika ingin menjaga jarak card item hanya adjust mr-[whatever], TODO: agar bisa slider -->
                     <div class="inline-block mb-4 relative shrink-0 rounded-[.95rem]">
                       <img class="inline-block shrink-0 rounded-[.95rem] w-[200px] h-[280px]" src="https://image.tmdb.org/t/p/original{{$cast['profile_path']}}" alt="Actor">
                     </div>
@@ -271,15 +271,17 @@
                       <span>{{ $cast['character'] }}</span>
                     </div>
                   </div>
+                  @endif
                   @php
                   $i++;
-                  if($i === 20){
+                  if($i === 15){
                   break;
                   }
                   @endphp
                   @endforeach
 
                 </div>
+                <div class="swiper-pagination"></div>
               </div>
             </div>
           </div>
@@ -291,8 +293,6 @@
 
 
   </main>
-
-
 
 
 
