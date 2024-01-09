@@ -27,8 +27,7 @@
 </head>
 
 <style>
-
-  .movie-detail{
+  .movie-detail {
     background: url("https://image.tmdb.org/t/p/original{{ $movieDetails['poster_path'] }}") no-repeat;
     background-size: cover;
     background-position: center;
@@ -46,10 +45,9 @@
     height: 100%;
     background-image: inherit;
     background-size: cover;
-    backdrop-filter: blur(10px); 
+    backdrop-filter: blur(10px);
     z-index: -1;
-}
-
+  }
 </style>
 
 <body id="#top">
@@ -74,12 +72,12 @@
         </button> -->
         <livewire:search-dropdown>
 
-        <!-- <button class="btn btn-primary">Sign in</button> -->
-        @if(Auth::check())
-        <a href="/logout"><button class="btn btn-primary">Logout</button></a>
-        @else
-        <a href="/login"><button class="btn btn-primary">Login</button></a>
-        @endif
+          <!-- <button class="btn btn-primary">Sign in</button> -->
+          @if(Auth::check())
+          <a href="/logout"><button class="btn btn-primary">Logout</button></a>
+          @else
+          <a href="/login"><button class="btn btn-primary">Login</button></a>
+          @endif
 
       </div>
 
@@ -92,7 +90,7 @@
         <div class="navbar-top">
 
           <a href="./index.html" class="logo">
-            <img src="./assets/images/logo.svg" alt="Filmlane logo"> <!-- NOTE:change the logo  -->
+            <img src="./assets/images/logo.svg" alt="Filmlane logo"> <!-- TODO:change the logo  -->
           </a>
 
           <button class="menu-close-btn" data-menu-close-btn>
@@ -118,7 +116,7 @@
           <li>
             <a href="/user/bookmarks" class="navbar-link">Bookmarks</a>
           </li>
-<!-- 
+          <!-- 
           <li>
             <a href="#" class="navbar-link">Pricing</a>
           </li> -->
@@ -153,100 +151,93 @@
           <div class="movie-detail-content">
 
             @if(Auth::check())
-              <livewire:bookmarks :id_item="$movieDetails['id']" :item_type="'movie'">
-            @endif
-            <p class="detail-subtitle">{{ $movieDetails['tagline'] }}</p>
-
-            <div class="movie-trailer">
-              @foreach($movieTrailers['results'] as $trailer) 
-              @if($trailer['type'] === "Trailer" && $trailer['name'] === "Official Trailer")
-                <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/{{ $trailer['key'] }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <livewire:bookmarks :id_item="$movieDetails['id']" :item_type="'movie'">
               @endif
-              @endforeach
-            </div> 
+              <p class="detail-subtitle">{{ $movieDetails['tagline'] }}</p>
 
-            
-            <h1 class="h1 detail-title">
-              {{ $movieDetails['title'] }}
-            </h1>
+              <div class="movie-trailer">
+                @foreach($movieTrailers['results'] as $trailer)
+                @if($trailer['type'] === "Trailer" && $trailer['name'] === "Official Trailer")
+                <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/{{ $trailer['key'] }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                @endif
+                @endforeach
+              </div>
 
-            <div class="meta-wrapper">
 
-              <!-- <div class="badge-wrapper">
+              <h1 class="h1 detail-title">
+                {{ $movieDetails['title'] }}
+              </h1>
+
+              <div class="meta-wrapper">
+
+                <!-- <div class="badge-wrapper">
                 <div class="badge badge-fill">PG 13</div>
 
                 <div class="badge badge-outline">HD</div>
               </div> -->
 
-              <div class="ganre-wrapper">
+                <div class="ganre-wrapper">
 
-                @if(count($movieDetails['genres']) > 0)
-                    @php
-                        $num_of_items = count($movieDetails['genres']);
-                        $num_count = 0;
-                    @endphp
-                    @foreach ($movieDetails['genres'] as $singleGenre)
-                        <a class="text-sm">
-                            {{ $singleGenre['name'] }}
-                        </a>
-                        @php
-                            $num_count = $num_count + 1;
-                            if ($num_count < $num_of_items) {
-                                echo '<a class="mx-2 flex items-center">•</a>';
-                            }
-                        @endphp
-                    @endforeach
-                @endif
-              </div>
+                  @if(count($movieDetails['genres']) > 0)
+                  @php
+                  $num_of_items = count($movieDetails['genres']);
+                  $num_count = 0;
+                  @endphp
+                  @foreach ($movieDetails['genres'] as $singleGenre)
+                  <a class="text-sm">
+                    {{ $singleGenre['name'] }}
+                  </a>
+                  @php
+                  $num_count = $num_count + 1;
+                  if ($num_count < $num_of_items) { echo '<a class="mx-2 flex items-center">•</a>' ; } @endphp @endforeach @endif </div>
 
-              <div class="date-time">
+                    <div class="date-time">
 
-                <div>
-                  <ion-icon name="calendar-outline"></ion-icon>
+                      <div>
+                        <ion-icon name="calendar-outline"></ion-icon>
 
-                  <!-- <time>{{ date('Y',strtotime($movieDetails['release_date'])) }}</time> -->
-                  <time>{{ $movieDetails['release_date'] }}</time>
+                        <!-- <time>{{ date('Y',strtotime($movieDetails['release_date'])) }}</time> -->
+                        <time>{{ $movieDetails['release_date'] }}</time>
+                      </div>
+
+                      <div>
+                        <ion-icon name="time-outline"></ion-icon>
+
+                        <time datetime="PT115M">{{ $movieDetails['runtime'] }} min</time>
+                      </div>
+
+                    </div>
+
                 </div>
 
-                <div>
-                  <ion-icon name="time-outline"></ion-icon>
-
-                  <time datetime="PT115M">{{ $movieDetails['runtime'] }} min</time>
-                </div>
+                <p class="storyline">
+                  {{ $movieDetails['overview'] }}
+                </p>
+                <!-- <p>status: {{ $movieDetails['status'] }}</p> -->
 
               </div>
 
-            </div>
-
-            <p class="storyline">
-              {{ $movieDetails['overview'] }}
-            </p>
-            <!-- <p>status: {{ $movieDetails['status'] }}</p> -->
 
           </div>
 
+          <div class="container" style="color: yellow; padding-top:4rem;">
+            <h1 style="font-size:40px; font-weight:bold;">Cast</h1>
+          </div>
 
-        </div>
-
-        <div class="container" style="color: yellow; padding-top:4rem;">
-          <h1 style="font-size:40px; -webkit-text-stroke: 1px black; font-weight:bold;">Cast</h1>
-        </div>
-
-        <!-- TODO make it the cast beauty layout lel! -->
-        <div class="cast-container">
+          <!-- TODO make it the cast beauty layout lel! -->
+          <!-- <div class="cast-container">
           <div class="cast-content text-white">
             @php
               $i = 0;
             @endphp
             @foreach($movieDetails['credits']['cast'] as $cast)
-
-          <ul class="cast-list">
-            <li>
-              <div class="cast-card">
-                <img src="https://image.tmdb.org/t/p/original{{$cast['profile_path']}}" alt="poster" width="200" height="280">
-              </div>
-            </li>
-          </ul>
+            <ul class="cast-list">
+              <li>
+                <div class="cast-card">
+                  <img src="https://image.tmdb.org/t/p/original{{$cast['profile_path']}}" alt="poster" width="200" height="280">
+                </div>
+              </li>
+            </ul>
             @php
               $i++;
               if($i === 7){
@@ -255,8 +246,45 @@
             @endphp
             @endforeach
           </div>
-        </div>
-        
+        </div> -->
+
+          <div class="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] border border-solid border-x-2 border-yellow-400 m-5 backdrop-blur-md bg-slate-700/25">
+            <!-- card body  -->
+            <div class="flex-auto block py-8 px-9 text-white">
+              <div>
+                <!-- <div class="mb-9">
+                  <h1 class="mb-2 text-[1.75rem] font-semibold text-yellow-400">Casts</h1>
+                </div> -->
+                <div class="flex flex-wrap w-full justify-center">
+                  <!-- card item -->
+                  @php
+                  $i = 0;
+                  @endphp
+                  @foreach($movieDetails['credits']['cast'] as $cast)
+                  @if($cast['profile_path'] !== null)
+                  <div class="flex flex-col mr-1 text-center mb-11"> <!-- jika ingin menjaga jarak card item hanya adjust mr-[whatever], TODO: agar bisa slider -->
+                    <div class="inline-block mb-4 relative shrink-0 rounded-[.95rem]">
+                      <img class="inline-block shrink-0 rounded-[.95rem] w-[200px] h-[280px]" src="https://image.tmdb.org/t/p/original{{$cast['profile_path']}}" alt="Actor">
+                    </div>
+                    <div class="text-center">
+                      <p href="javascript:void(0)" class="text-yellow-400 font-semibold hover:text-primary text-[1.25rem] transition-colors duration-200 ease-in-out">{{$cast['name']}}</p>
+                      <span>{{ $cast['character'] }}</span>
+                    </div>
+                  </div>
+                  @endif
+                  @php
+                  $i++;
+                  if($i === 15){
+                  break;
+                  }
+                  @endphp
+                  @endforeach
+
+                </div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
 
       </section>
 
@@ -268,72 +296,11 @@
 
 
 
-
-
   <!-- 
     - #FOOTER
   -->
 
   <footer class="footer">
-
-    <div class="footer-top">
-      <div class="container">
-
-
-        <div class="quicklink-wrapper">
-
-          <ul class="quicklink-list">
-
-            <li>
-              <a href="#" class="quicklink-link">Faq</a>
-            </li>
-
-            <li>
-              <a href="#" class="quicklink-link">Help center</a>
-            </li>
-
-            <li>
-              <a href="#" class="quicklink-link">Terms of use</a>
-            </li>
-
-            <li>
-              <a href="#" class="quicklink-link">Privacy</a>
-            </li>
-
-          </ul>
-
-          <ul class="social-list">
-
-            <li>
-              <a href="#" class="social-link">
-                <ion-icon name="logo-facebook"></ion-icon>
-              </a>
-            </li>
-
-            <li>
-              <a href="#" class="social-link">
-                <ion-icon name="logo-twitter"></ion-icon>
-              </a>
-            </li>
-
-            <li>
-              <a href="#" class="social-link">
-                <ion-icon name="logo-pinterest"></ion-icon>
-              </a>
-            </li>
-
-            <li>
-              <a href="#" class="social-link">
-                <ion-icon name="logo-linkedin"></ion-icon>
-              </a>
-            </li>
-
-          </ul>
-
-        </div>
-
-      </div>
-    </div>
 
     <div class="footer-bottom">
       <div class="container">

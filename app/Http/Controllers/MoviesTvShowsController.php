@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class MoviesTvShowsController extends Controller
@@ -12,7 +13,7 @@ class MoviesTvShowsController extends Controller
 
         $response = $client->request('GET', config('services.tmdb.endpoint') . 'movie/popular?include_adult=false&language=en-US' . '&api_key=' . config('services.tmdb.api'), [
             'headers' => [
-              'Authorization' => config('servies.tmdb.auth'),
+              'Authorization' => config('services.tmdb.auth'),
               'accept' => 'application/json',
             ],
           ]);
@@ -27,7 +28,7 @@ class MoviesTvShowsController extends Controller
 
         $responseTv = $client->request('GET', config('services.tmdb.endpoint') . 'trending/tv/week?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc' . '&api_key=' . config('services.tmdb.api'), [
               'headers' => [
-              'Authorization' => config('servies.tmdb.auth'),
+              'Authorization' => config('services.tmdb.auth'),
               'accept' => 'application/json',
             ],
           ]);
@@ -40,28 +41,45 @@ class MoviesTvShowsController extends Controller
     }
     
     public function movieDetail($id){
-    $client = new \GuzzleHttp\Client();
 
-    $response = $client->request('GET', config('services.tmdb.endpoint') . 'movie/' . $id . '?include_adult=false&language=en-US&append_to_response=credits' . '&api_key=' . config('services.tmdb.api'), [
-      'headers' => [
-        'Authorization' => config('servies.tmdb.auth'),
-        'accept' => 'application/json',
-      ],
-    ]);
+      // i think its fine if not cachinging this function, absolutely NO! 
+      $client = new \GuzzleHttp\Client();
+      $cache_key = 'movieDetails_' . $id;
 
-    $response_trailer = $client->request('GET', config('services.tmdb.endpoint') . 'movie/' . $id . '/videos?include_adult=false&language=en-US&append_to_response=credits' . '&api_key=' . config('services.tmdb.api'), [
-      'headers' => [
-        'Authorization' => config('servies.tmdb.auth'),
-        'accept' => 'application/json',
-      ],
-    ]);
+      if(Cache::has($cache_key)){
+        return view('movie-details', [
+          'movieDetails' => Cache::get($cache_key)['movieDetails'],
+          'movieTrailers' => Cache::get($cache_key)['movieTrailers'],
+      ]);
+      }
 
-    // $data_film = json_decode($response->getBody(), true);
-        
-    return view('movie-details', [
-      'movieDetails' => json_decode($response->getBody(), true),
-      'movieTrailers' => json_decode($response_trailer->getBody(), true)
-    ]);
+      $response = $client->request('GET', config('services.tmdb.endpoint') . 'movie/' . $id . '?include_adult=false&language=en-US&append_to_response=credits' . '&api_key=' . config('services.tmdb.api'), [
+        'headers' => [
+          'Authorization' => config('services.tmdb.auth'),
+          'accept' => 'application/json',
+        ],
+      ]);
+
+      $response_trailer = $client->request('GET', config('services.tmdb.endpoint') . 'movie/' . $id . '/videos?include_adult=false&language=en-US&append_to_response=credits' . '&api_key=' . config('services.tmdb.api'), [
+        'headers' => [
+          'Authorization' => config('services.tmdb.auth'),
+          'accept' => 'application/json',
+        ],
+      ]);
+
+      // $data_film = json_decode($response->getBody(), true);
+
+      $cachedData = [
+        'movieDetails' => json_decode($response->getBody(), true),
+        'movieTrailers' => json_decode($response_trailer->getBody(), true),
+      ];
+      Cache::put($cache_key, $cachedData, now()->addMinutes(60));
+
+      // return view('movie-details', [
+      //   'movieDetails' => json_decode($response->getBody(), true),
+      //   'movieTrailers' => json_decode($response_trailer->getBody(), true)
+      // ]);
+      return view('movie-details', $cachedData);
     }
 
     public function tvDetail($id){
@@ -69,7 +87,7 @@ class MoviesTvShowsController extends Controller
 
       $response = $client->request('GET', config('services.tmdb.endpoint') . 'tv/' . $id . '?language=en-US' . '&api_key=' .  config('services.tmdb.api'), [
         'headers' => [
-          'Authorization' => config('servies.tmdb.auth'),
+          'Authorization' => config('services.tmdb.auth'),
           'accept' => 'application/json',
         ],
       ]);
