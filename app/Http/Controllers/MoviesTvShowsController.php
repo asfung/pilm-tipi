@@ -42,7 +42,8 @@ class MoviesTvShowsController extends Controller
     
     public function movieDetail($id){
 
-      // i think its fine if not cachinging this function
+      // i think its fine if not cachinging this function, absolutely NO! 
+      $client = new \GuzzleHttp\Client();
       $cache_key = 'movieDetails_' . $id;
 
       if(Cache::has($cache_key)){
@@ -52,7 +53,6 @@ class MoviesTvShowsController extends Controller
       ]);
       }
 
-      $client = new \GuzzleHttp\Client();
       $response = $client->request('GET', config('services.tmdb.endpoint') . 'movie/' . $id . '?include_adult=false&language=en-US&append_to_response=credits' . '&api_key=' . config('services.tmdb.api'), [
         'headers' => [
           'Authorization' => config('services.tmdb.auth'),
