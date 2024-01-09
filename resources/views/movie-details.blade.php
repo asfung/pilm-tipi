@@ -92,7 +92,7 @@
         <div class="navbar-top">
 
           <a href="./index.html" class="logo">
-            <img src="./assets/images/logo.svg" alt="Filmlane logo">
+            <img src="./assets/images/logo.svg" alt="Filmlane logo"> <!-- NOTE:change the logo  -->
           </a>
 
           <button class="menu-close-btn" data-menu-close-btn>
@@ -368,7 +368,7 @@
   <!-- 
     - custom js link
   -->
-  <script src="./assets/js/script.js"></script>
+  <script src="/assets/js/script.js"></script>
 
   <!-- 
     - ionicon link
