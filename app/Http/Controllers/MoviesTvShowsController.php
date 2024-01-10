@@ -26,17 +26,18 @@ class MoviesTvShowsController extends Controller
           // tv shows
         // $client = new \GuzzleHttp\Client();
 
-        $responseTv = $client->request('GET', config('services.tmdb.endpoint') . 'trending/tv/week?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc' . '&api_key=' . config('services.tmdb.api'), [
-              'headers' => [
-              'Authorization' => config('services.tmdb.auth'),
-              'accept' => 'application/json',
-            ],
-          ]);
+        // udh gk perlu lagi, byeee...
+        // $responseTv = $client->request('GET', config('services.tmdb.endpoint') . 'trending/tv/week?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc' . '&api_key=' . config('services.tmdb.api'), [
+        //       'headers' => [
+        //       'Authorization' => config('services.tmdb.auth'),
+        //       'accept' => 'application/json',
+        //     ],
+        //   ]);
 
     
-        $tvShows = json_decode($responseTv->getBody(), true);
+        // $tvShows = json_decode($responseTv->getBody(), true);
 
-        return view('index', compact('data_film', 'tvShows', 'http_id_value'));
+        return view('index', compact('data_film', 'http_id_value'));
 
     }
     
@@ -67,13 +68,59 @@ class MoviesTvShowsController extends Controller
         ],
       ]);
 
-      // $data_film = json_decode($response->getBody(), true);
+      // later....
+      $statusCode_1 = $response->getStatusCode();
+      $statusCode_2 = $response_trailer->getStatusCode();
 
+      // if($statusCode_1 == 200 && $statusCode_2 == 200){
+      //   //   return view('movie-details', [
+      //   //     'movieDetails' => Cache::get($cache_key)['movieDetails'],
+      //   //     'movieTrailers' => Cache::get($cache_key)['movieTrailers'],
+      //   //  ]);
+      //     $cachedData = [
+      //       'movieDetails' => json_decode($response->getBody(), true),
+      //       'movieTrailers' => json_decode($response_trailer->getBody(), true),
+      //     ];
+      //     Cache::put($cache_key, $cachedData, now()->addMinutes(60));
+      //   return view('movie-details', $cachedData);
+      // }else{
+      //   switch($statusCode_1){
+      //     case 401:
+      //       return view('errors.401');
+      //     break;
+      //     case 402:
+      //       return view('errors.402');
+      //     break;
+      //     case 403:
+      //       return view('errors.403');
+      //     break;
+      //     case 404:
+      //       return view('errors.404');
+      //     break;
+      //     case 419:
+      //       return view('errors.419');
+      //     break;
+      //     case 429:
+      //       return view('errors.429');
+      //     break;
+      //     case 500:
+      //       return view('errors.500');
+      //     break;
+      //     case 503:
+      //       return view('errors.503');
+      //     break;
+      //     default: 
+      //       return view('errors.404');
+      //   }
+      // }
+
+      // $data_film = json_decode($response->getBody(), true);
       $cachedData = [
         'movieDetails' => json_decode($response->getBody(), true),
         'movieTrailers' => json_decode($response_trailer->getBody(), true),
       ];
       Cache::put($cache_key, $cachedData, now()->addMinutes(60));
+      
 
       // return view('movie-details', [
       //   'movieDetails' => json_decode($response->getBody(), true),
