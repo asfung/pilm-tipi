@@ -148,6 +148,7 @@
 <body class="antialiased">
   <div class="container">
     <div class="content">
+      <div class="text" style="margin-bottom: 0;">Ada Yang Ga Beres Nih...</div>
       <div class="title">404</div>
       <div class="text">@yield('message')</div>
       <div class="text"><a href="/" class="cta">
