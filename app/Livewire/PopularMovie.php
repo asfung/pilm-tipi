@@ -14,32 +14,66 @@ class PopularMovie extends Component
         $http_id_value = Http::class;
 
         // schema caching 
-        $data_film = Cache::remember('popular_movies', now()->addMinutes(60), function() {
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', config('services.tmdb.endpoint') . 'movie/popular?include_adult=false&language=en-US' . '&api_key=' . config('services.tmdb.api'), [
-            'headers' => [
-              'Authorization' => config('servies.tmdb.auth'),
-              'accept' => 'application/json',
-            ],
-          ]);
+        $data_film = Cache::remember('popular_movies', now()->addMinutes(60), function () {
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request('GET', config('services.tmdb.endpoint') . 'movie/popular?include_adult=false&language=en-US' . '&api_key=' . config('services.tmdb.api'), [
+                'headers' => [
+                    'Authorization' => config('servies.tmdb.auth'),
+                    'accept' => 'application/json',
+                ],
+            ]);
 
-        // $data_film = json_decode($response->getBody(), true);
-        return json_decode($response->getBody(), true);
+            // $data_film = json_decode($response->getBody(), true);
+
+            // later....... if i remember
+            // switch ($response->getStatusCode()) {
+            //     case 200:
+            //         return json_decode($response->getBody(), true);
+            //         break;
+            //     case 401:
+            //         return view('errors.401');
+            //         break;
+            //     case 402:
+            //         return view('errors.402');
+            //         break;
+            //     case 403:
+            //         return view('errors.403');
+            //         break;
+            //     case 404:
+            //         return view('errors.404');
+            //         break;
+            //     case 419:
+            //         return view('errors.419');
+            //         break;
+            //     case 429:
+            //         return view('errors.429');
+            //         break;
+            //     case 500:
+            //         return view('errors.500');
+            //         break;
+            //     case 503:
+            //         return view('errors.503');
+            //         break;
+            //     default:
+            //         return view('errors.404');
+            // };
+            return json_decode($response->getBody(), true);
         });
 
         // tv shows
-        $tvShows = Cache::remember('trending_tv', now()->addMinutes(60), function(){
-        $client = new \GuzzleHttp\Client();
-        $responseTv = $client->request('GET', config('services.tmdb.endpoint') . 'trending/tv/week?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc' . '&api_key=' . config('services.tmdb.api'), [
-              'headers' => [
-              'Authorization' => config('servies.tmdb.auth'),
-              'accept' => 'application/json',
-            ],
-          ]);
+        $tvShows = Cache::remember('trending_tv', now()->addMinutes(60), function () {
+            $client = new \GuzzleHttp\Client();
+            $responseTv = $client->request('GET', config('services.tmdb.endpoint') . 'trending/tv/week?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1&sort_by=popularity.desc' . '&api_key=' . config('services.tmdb.api'), [
+                'headers' => [
+                    'Authorization' => config('servies.tmdb.auth'),
+                    'accept' => 'application/json',
+                ],
+            ]);
 
-        // $tvShows = json_decode($responseTv->getBody(), true);
-        return json_decode($responseTv->getBody(), true);
+            // $tvShows = json_decode($responseTv->getBody(), true);
+            return json_decode($responseTv->getBody(), true);
         });
+
 
         return view('livewire.popular-movie', compact('data_film', 'tvShows'));
     }
@@ -48,8 +82,8 @@ class PopularMovie extends Component
     {
         $output = '<ul class="movies-list">';
 
-    for ($i = 0; $i < 8; $i++) {
-        $output .= <<<HTML
+        for ($i = 0; $i < 8; $i++) {
+            $output .= <<<HTML
         <!-- return <<<HTML -->
         <!-- <ul class="movies-list"> -->
         <li>
@@ -92,11 +126,11 @@ class PopularMovie extends Component
         </li>
         <!-- </ul> -->
     HTML;
-    }
+        }
 
-    $output .= '</ul>';
+        $output .= '</ul>';
 
-    return $output;
+        return $output;
     }
 }
 
