@@ -32,7 +32,7 @@ class SessionController extends Controller
 
         if(Auth::attempt($infoLogin)){
             if(Auth::user()->role == 'user'){
-                toast('Anda Login Sebagai ' . Auth::user()->name, 'success');
+                toast('Anda Login Sebagai ' . Auth::user()->name . ' 😉', 'success');   // TODO: do not using sweetalert helper
                 return redirect('/');
             }
         }else{
