@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RegisterController extends Controller
 {
@@ -26,7 +27,7 @@ class RegisterController extends Controller
         ]);
     
         $user->save(); 
-
-        return redirect('/login')->with('success', 'Registration successful');
+        Alert::success('Yay!', 'Anda Berhasil Membuat Akun');
+        return redirect('/login');
     }
 }
