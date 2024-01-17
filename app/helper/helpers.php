@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Bookmarks as BookmarksModel;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 function test($x){
@@ -53,9 +54,24 @@ function getAllBookmark(){
 
 
 function getMovieByArray($ids){
-
   // array to string single = https://tinkerwell.app/blog/how-to-use-implode-in-php#:~:text=The%20implode()%20function%20in,you%20want%20to%20join%20together.
-  $movies = Cache::remember('arrMovies_' . implode('_' , $ids), now()->addMinutes(60), function() use ($ids){
+  $cacheKey = 'arrMovies' . implode('_', $ids);
+  // dump($split_str); // dump($split_str[1]); // dump(gettype($split_str[1])); ====> Troubleshooting
+
+  $split_str = explode('arrMovies', $cacheKey);
+  $split_str_toInt = (int) $split_str[1];
+  $datas_table = BookmarksModel::all()->where('name_user', Auth::user()->name)->where('item_type', 'movie')->toArray();
+  // casting string to int
+  // dump($split_str_toInt);
+  // dump(gettype($split_str_toInt));
+  foreach($datas_table as $data){
+    // dump($data['item_id']);
+    if($split_str_toInt !== $data['item_id']){
+      Cache::forget($cacheKey);
+    }
+  }
+
+  $movies = Cache::remember($cacheKey, now()->addMinutes(60), function() use ($ids){
 
     $client = new \GuzzleHttp\Client();
     $movies = [];
@@ -78,13 +94,29 @@ function getMovieByArray($ids){
     }
     return $movies;
   });
+  // dump($movies);
 
   return $movies;
 }
 
 function getTvByArray($ids){
+
+  $cacheKey = 'arrTvs' . implode('_', $ids);
+
+  $split_str = explode('arrTvs', $cacheKey);
+  $split_str_toInt = (int) $split_str[1];
+  $datas_table = BookmarksModel::all()->where('name_user', Auth::user()->name)->where('item_type', 'tv')->toArray();
+  // casting string to int
+  // dump($split_str_toInt);
+  // dump(gettype($split_str_toInt));
+  foreach($datas_table as $data){
+    // dump($data['item_id']);
+    if($split_str_toInt !== $data['item_id']){
+      Cache::forget($cacheKey);
+    }
+  }
   
-  $tvs = Cache::remember('arrTvs_' . implode('_', $ids), now()->addMinutes(60), function() use ($ids){
+  $tvs = Cache::remember($cacheKey, now()->addMinutes(60), function() use ($ids){
     $client = new \GuzzleHttp\Client();
     $tvs = [];
     foreach ($ids as $id) {

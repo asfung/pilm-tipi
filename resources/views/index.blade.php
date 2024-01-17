@@ -54,6 +54,7 @@
 </style>
 
 <body id="top">
+  @include('sweetalert::alert')
 
   <!-- 
     - #HEADER

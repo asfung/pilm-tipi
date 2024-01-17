@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SessionController extends Controller
 {
@@ -31,6 +32,7 @@ class SessionController extends Controller
 
         if(Auth::attempt($infoLogin)){
             if(Auth::user()->role == 'user'){
+                toast('Anda Login Sebagai ' . Auth::user()->name, 'success');
                 return redirect('/');
             }
         }else{
@@ -39,6 +41,7 @@ class SessionController extends Controller
     }
 
     function logout(){
+        Alert::toast('Good Bye ' . Auth::user()->name . ' ☹️', 'info');
         Auth::logout();
         return redirect('');
     }
