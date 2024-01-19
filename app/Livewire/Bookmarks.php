@@ -44,6 +44,7 @@ class Bookmarks extends Component
             ]);
 
             $addBookmarks->save();
+            toast('Ditambahkan Ke Bookmark','success'); // a virus here 
         }
 
         // changing the button effect
