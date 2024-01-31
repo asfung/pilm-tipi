@@ -78,23 +78,6 @@ function getMovieByArray($ids){
 }
 
 function getTvByArray($ids){
-
-  $cacheKey = 'arrTvs' . implode('_', $ids);
-
-  $split_str = explode('arrTvs', $cacheKey);
-  $split_str_toInt = (int) $split_str[1];
-  $datas_table = BookmarksModel::all()->where('name_user', Auth::user()->name)->where('item_type', 'tv')->toArray();
-  // casting string to int
-  // dump($split_str_toInt);
-  // dump(gettype($split_str_toInt));
-  foreach($datas_table as $data){
-    // dump($data['item_id']);
-    if($split_str_toInt !== $data['item_id']){
-      Cache::forget($cacheKey);
-    }
-  }
-
-  $tvs = Cache::remember($cacheKey, now()->addMinutes(60), function() use ($ids){
     $client = new \GuzzleHttp\Client();
     $tvs = [];
     foreach ($ids as $id) {
@@ -114,8 +97,6 @@ function getTvByArray($ids){
         $tvs[] = $data;
       }
     }
-    return $tvs;
-  });
 
   return $tvs;
 }
