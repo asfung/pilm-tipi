@@ -54,25 +54,6 @@ function getAllBookmark(){
 
 
 function getMovieByArray($ids){
-  // array to string single = https://tinkerwell.app/blog/how-to-use-implode-in-php#:~:text=The%20implode()%20function%20in,you%20want%20to%20join%20together.
-  $cacheKey = 'arrMovies' . implode('_', $ids);
-  // dump($split_str); // dump($split_str[1]); // dump(gettype($split_str[1])); ====> Troubleshooting
-
-  $split_str = explode('arrMovies', $cacheKey);
-  $split_str_toInt = (int) $split_str[1];
-  $datas_table = BookmarksModel::all()->where('name_user', Auth::user()->name)->where('item_type', 'movie')->toArray();
-  // casting string to int
-  // dump($split_str_toInt);
-  // dump(gettype($split_str_toInt));
-  foreach($datas_table as $data){
-    // dump($data['item_id']);
-    if($split_str_toInt !== $data['item_id']){
-      Cache::forget($cacheKey);
-    }
-  }
-
-  $movies = Cache::remember($cacheKey, now()->addMinutes(60), function() use ($ids){
-
     $client = new \GuzzleHttp\Client();
     $movies = [];
     foreach ($ids as $id) {
@@ -92,9 +73,6 @@ function getMovieByArray($ids){
         $movies[] = $data;
       }
     }
-    return $movies;
-  });
-  // dump($movies);
 
   return $movies;
 }
@@ -115,7 +93,7 @@ function getTvByArray($ids){
       Cache::forget($cacheKey);
     }
   }
-  
+
   $tvs = Cache::remember($cacheKey, now()->addMinutes(60), function() use ($ids){
     $client = new \GuzzleHttp\Client();
     $tvs = [];
