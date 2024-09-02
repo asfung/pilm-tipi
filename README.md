@@ -7,8 +7,19 @@
 </p>
 
 ## Demo
+#### Home
+<p><img src="https://github.com/asfung/pilm-tipi/blob/main/docs/assets/image/home_client.png?raw=true"/></p>
 
-<p style="color: red; font-weight: bold;">Soon</p>
+#### Movies
+<p><img src="https://github.com/asfung/pilm-tipi/blob/main/docs/assets/image/movies_client.png?raw=true"/></p>
+
+#### TVs
+<p><img src="https://github.com/asfung/pilm-tipi/blob/main/docs/assets/image/tv_client.png?raw=true"/></p>
+
+#### Bookmarks
+<p><img src="https://github.com/asfung/pilm-tipi/blob/main/docs/assets/image/bookmarks_client.png?raw=true"/></p>
+
+<!-- <p style="color: red; font-weight: bold;">Soon</p> -->
 
 ## at this source
 

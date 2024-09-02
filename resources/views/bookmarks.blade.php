@@ -7,17 +7,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>pilem ato tipi lah bossss...</title>
 
-  <!-- 
+  <!--
     - favicon
   -->
   <link rel="shortcut icon" href="http://localhost:8998/favicon.svg" type="image/svg+xml">
 
-  <!-- 
+  <!--
     - custom css link
   -->
   <link rel="stylesheet" href="/assets/css/style.css">
 
-  <!-- 
+  <!--
     - google font link
   -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,7 +28,7 @@
 
 <body id="top">
 
-  <!-- 
+  <!--
     - #HEADER
   -->
 
@@ -118,7 +118,7 @@
 
           <h2 class="h2 section-title border-b-4">Your All Bookmarks, {{ Auth::user()->name }}</h2>
 
-         <livewire:bookmark-data lazy="on-load" /> 
+         <livewire:bookmark-data lazy="on-load" />
 
 
         </div>
@@ -131,7 +131,7 @@
 
 
 
-  <!-- 
+  <!--
     - #FOOTER
   -->
 
@@ -153,7 +153,7 @@
 
 
 
-  <!-- 
+  <!--
     - #GO TO TOP
   -->
 
@@ -162,15 +162,25 @@
   </a>
 
 
+  <script>
+    const navbar = document.querySelector('[data-header]');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 200) { // adjust the value to your liking
+        navbar.classList.add('glassmorphism');
+      } else {
+        navbar.classList.remove('glassmorphism');
+      }
+    });
+  </script>
 
 
-
-  <!-- 
+  <!--
     - custom js link
   -->
   <script src="http://localhosst:8998/assets/js/script.js"></script>
 
-  <!-- 
+  <!--
     - ionicon link
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

@@ -18,15 +18,15 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string',
         ]);
-    
+
         $user = new User([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
-            'roles' => 'user', 
+            'roles' => 'user',
         ]);
-    
-        $user->save(); 
+
+        $user->save();
         Alert::success('Yay!', 'Anda Berhasil Membuat Akun');
         return redirect('/login');
     }

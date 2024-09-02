@@ -38,6 +38,8 @@ Route::get('/tv/{id}', [MoviesTvShowsController::class, 'tvDetail'])->name('tv-d
 
 Route::get('/user/bookmarks', [SessionController::class, 'bookmarks'])->name('bookmarks')->middleware('AksesUser:user');
 
+Route::get('/popular-movies/{page}', [MoviesTvShowsController::class, 'index'])->name('popular-movies');
+
 // Route::middleware('auth')->group(function() {
 //     Route::get('/', [MoviesTvShowsController::class, 'index'])->middleware('AksesUser:user');
 //     Route::get('/movie/{id}', [MoviesTvShowsController::class, 'movieDetail'])->name('movie-details')->middleware('AksesUser:user');

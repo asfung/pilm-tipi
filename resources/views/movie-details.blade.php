@@ -7,17 +7,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ $movieDetails['title'] }}</title>
 
-  <!-- 
+  <!--
     - favicon
   -->
   <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
 
-  <!-- 
+  <!--
     - custom css link
   -->
   <link rel="stylesheet" href="/assets/css/style.css">
 
-  <!-- 
+  <!--
     - google font link
   -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,7 +52,7 @@
 
 <body id="#top">
 
-  <!-- 
+  <!--
     - #HEADER
   -->
 
@@ -116,7 +116,7 @@
           <li>
             <a href="/user/bookmarks" class="navbar-link">Bookmarks</a>
           </li>
-          <!-- 
+          <!--
           <li>
             <a href="#" class="navbar-link">Pricing</a>
           </li> -->
@@ -135,7 +135,7 @@
   <main>
     <article>
 
-      <!-- 
+      <!--
         - #MOVIE DETAIL
       -->
 
@@ -295,7 +295,7 @@
 
 
 
-  <!-- 
+  <!--
     - #FOOTER
   -->
 
@@ -308,7 +308,7 @@
           &copy; 2023 <a href="#">Paung</a>. All Rights Reserved
         </p>
 
-        <img src="./assets/images/footer-bottom-img.png" alt="Online banking companies logo" class="footer-bottom-img">
+        <!-- <img src="./assets/images/footer-bottom-img.png" alt="Online banking companies logo" class="footer-bottom-img"> -->
 
       </div>
     </div>
@@ -319,7 +319,7 @@
 
 
 
-  <!-- 
+  <!--
     - #GO TO TOP
   -->
 
@@ -328,15 +328,26 @@
   </a>
 
 
+  <script>
+    const navbar = document.querySelector('[data-header]');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 200) { // adjust the value to your liking
+        navbar.classList.add('glassmorphism');
+      } else {
+        navbar.classList.remove('glassmorphism');
+      }
+    });
+  </script>
 
 
 
-  <!-- 
+  <!--
     - custom js link
   -->
   <script src="/assets/js/script.js"></script>
 
-  <!-- 
+  <!--
     - ionicon link
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

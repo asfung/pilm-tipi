@@ -867,8 +867,8 @@ body.active { overflow: hidden; }
   transition: var(--transition-1);
 }
 
-.footer-bottom { 
-  padding-block: 25px; 
+.footer-bottom {
+  padding-block: 25px;
 
 }
 
@@ -928,7 +928,7 @@ body.active { overflow: hidden; }
 
 
 /*-----------------------------------*\
- * #MOVIE DETAIL 
+ * #MOVIE DETAIL
 \*-----------------------------------*/
 
 /* .movie-detail { */
@@ -1247,7 +1247,7 @@ body.active { overflow: hidden; }
   .service-btn {
     right: -20px;
     padding: 40px 50px;
-  }  
+  }
 
   .service-content { padding-inline: 40px; }
 
@@ -1636,3 +1636,14 @@ body.active { overflow: hidden; }
   width: 60%;
   height: 60%;
 }
+
+
+.glassmorphism {
+  /* background-color: rgba(255, 255, 255, 0.2); */
+  background-color: rgba(0, 0, 0, 0.5);
+/* var(--eerie-black) */
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+

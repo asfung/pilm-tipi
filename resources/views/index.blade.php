@@ -7,17 +7,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>pilem ato tipi lah bossss...</title>
 
-  <!-- 
+  <!--
     - favicon
   -->
   <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
 
-  <!-- 
+  <!--
     - custom css link
   -->
   <link rel="stylesheet" href="./assets/css/style.css">
 
-  <!-- 
+  <!--
     - google font link
   -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,8 +32,8 @@
 
   @foreach($data_film['results'] as $imageBackground)
   /* CURRENT BACKGROUND : background: url("https://image.tmdb.org/t/p/original/rLb2cwF3Pazuxaj0sRXQ037tGI1.jpg") no-repeat; */
-  <?php 
-    $imageArr[] = $imageBackground['backdrop_path']; 
+  <?php
+    $imageArr[] = $imageBackground['backdrop_path'];
     // dump($imageArr); // trouble logging => proses menangkap data dari loop dan dimasukkan ke variable array
     shuffle($imageArr);
     $slicingArr = array_slice($imageArr, 0, 19);
@@ -56,7 +56,7 @@
 <body id="top">
   @include('sweetalert::alert')
 
-  <!-- 
+  <!--
     - #HEADER
   -->
 
@@ -197,7 +197,7 @@
   <main>
     <article>
 
-      <!-- 
+      <!--
         - #HERO
       -->
 
@@ -276,7 +276,7 @@
 
 
 
-      <!-- 
+      <!--
         - #UPCOMING
       -->
 
@@ -466,7 +466,7 @@
 
 
 
-      <!-- 
+      <!--
         - #SERVICE
       -->
 
@@ -546,7 +546,7 @@
 
 
 
-      <!-- 
+      <!--
         - #TOP RATED
       -->
 
@@ -557,7 +557,7 @@
 
           <h2 class="h2 section-title">Popular Movies</h2>
 
-           <livewire:popular-movie lazy="on-load"/> 
+           <livewire:popular-movie lazy="on-load"/>
 
         </div>
       </section>
@@ -566,7 +566,7 @@
 
 
 
-<!--       
+<!--
         - #TV SERIES
       -->
 
@@ -698,7 +698,7 @@
 
 
 
-      <!-- 
+      <!--
         - #CTA
       -->
 
@@ -729,7 +729,7 @@
 
 
 
-  <!-- 
+  <!--
     - #FOOTER
   -->
 
@@ -834,7 +834,7 @@
           &copy; 2023 <a href="#">Paung</a>. All Rights Reserved
         </p>
 
-        <img src="./assets/images/footer-bottom-img.png" alt="Online banking companies logo" class="footer-bottom-img">
+        <!-- <img src="./assets/images/footer-bottom-img.png" alt="Online banking companies logo" class="footer-bottom-img"> -->
 
       </div>
     </div>
@@ -845,7 +845,7 @@
 
 
 
-  <!-- 
+  <!--
     - #GO TO TOP
   -->
 
@@ -854,15 +854,26 @@
   </a>
 
 
+  <script>
+    const navbar = document.querySelector('[data-header]');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 200) { // adjust the value to your liking
+        navbar.classList.add('glassmorphism');
+      } else {
+        navbar.classList.remove('glassmorphism');
+      }
+    });
+  </script>
 
 
 
-  <!-- 
+  <!--
     - custom js link
   -->
   <script src="./assets/js/script.js"></script>
 
-  <!-- 
+  <!--
     - ionicon link
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

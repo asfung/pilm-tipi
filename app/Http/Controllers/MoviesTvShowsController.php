@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class MoviesTvShowsController extends Controller
 {
-    public function index(){
+    public function index($page = 1){
         $client = new \GuzzleHttp\Client();
         $http_id_value = Http::class;
 
@@ -19,6 +19,23 @@ class MoviesTvShowsController extends Controller
           ]);
 
         $data_film = json_decode($response->getBody(), true);
+
+        // $client = new \GuzzleHttp\Client();
+        // $http_id_value = Http::class;
+        //
+        // $response = $client->request('GET', config('services.tmdb.endpoint') . 'movie/popular?include_adult=false&language=en-US&page=' . $page . '&api_key=' . config('services.tmdb.api'), [
+        //     'headers' => [
+        //       'Authorization' => config('services.tmdb.auth'),
+        //       'accept' => 'application/json',
+        //     ],
+        //   ]);
+        //
+        // $data_film = json_decode($response->getBody(), true);
+        //
+        // $total_pages = $data_film['total_pages'];
+        // $current_page = $page;
+
+
 
         // FIXED but not in here
         // $get_data_value = Http::asJson()->get(config('services.tmdb.endpoint') . 'movie/' . $data_film['results'][0]['id'] . '?api_key=' . config('services.tmdb.api'));
@@ -34,16 +51,17 @@ class MoviesTvShowsController extends Controller
         //     ],
         //   ]);
 
-    
+
         // $tvShows = json_decode($responseTv->getBody(), true);
 
         return view('index', compact('data_film', 'http_id_value'));
+        // return view('index', compact('data_film', 'http_id_value', 'total_pages', 'current_page'));
 
     }
-    
+
     public function movieDetail($id){
 
-      // i think its fine if not cachinging this function, absolutely NO! 
+      // i think its fine if not cachinging this function, absolutely NO!
       $client = new \GuzzleHttp\Client();
       $cache_key = 'movieDetails_' . $id;
 
@@ -109,7 +127,7 @@ class MoviesTvShowsController extends Controller
       //     case 503:
       //       return view('errors.503');
       //     break;
-      //     default: 
+      //     default:
       //       return view('errors.404');
       //   }
       // }
@@ -120,7 +138,7 @@ class MoviesTvShowsController extends Controller
         'movieTrailers' => json_decode($response_trailer->getBody(), true),
       ];
       Cache::put($cache_key, $cachedData, now()->addMinutes(60));
-      
+
 
       // return view('movie-details', [
       //   'movieDetails' => json_decode($response->getBody(), true),

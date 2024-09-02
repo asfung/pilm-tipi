@@ -45,10 +45,25 @@ function getTvById($id){
 }
 
 function getAllBookmark(){
-  $data = Cache::remember('bmrkfetch_', now()->addMinutes(60), function(){
+  // $data = Cache::remember('bmrkfetch_', now()->addMinutes(60), function(){
     // $data = BookmarksModel::all(); => BEFORE
-    return BookmarksModel::all();
+    // return BookmarksModel::all();
+    // return BookmarksModel::orderBy('created_at', 'desc')->get();
+    // return BookmarksModel::latest()->get();
+  // });
+  // return $data;
+
+  $data = Cache::remember('bmrkfetch_', now()->addMinutes(60), function(){
+    return BookmarksModel::orderBy('created_at', 'desc')->get();
   });
+
+  $cachedCount = $data->count();
+  $modelCount = BookmarksModel::count();
+
+  if ($cachedCount < $modelCount) {
+    return BookmarksModel::orderBy('created_at', 'desc')->get();
+  }
+
   return $data;
 }
 
