@@ -2,11 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Cache;
+use App\DataTransferObject\MovieDTO;
+use App\DataTransferObject\TvDTO;
+use Illuminate\Http\Request;
+use App\services\MoviesService;
+use App\services\TvsService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Validation\UnauthorizedException;
 
 class MoviesTvShowsController extends Controller
 {
+
+  private $movieService;
+  private $tvService;
+  public function __construct()
+  {
+    $this->movieService = new MoviesService();
+    $this->tvService = new TvsService();
+  }
+
     public function index($page = 1){
         $client = new \GuzzleHttp\Client();
         $http_id_value = Http::class;
@@ -161,6 +178,104 @@ class MoviesTvShowsController extends Controller
 
     }
 
+    public function popularMoviesCTLL(Request $request){
+      try{
+        $user = Auth::guard('api')->user();
+        $page_request = $request->input('page');
+        $movieDTO = new MovieDTO();
+        $movieDTO->setPage($page_request);
+        $result = $this->movieService->getPopularMovies($movieDTO);
+        return response()->json($result, 200);
+      }catch(\Exception $e){
+        return response()->json($e->getMessage(), 500);
+      }
+    }
 
+
+    public function topRatedMoviesCTLL(Request $request){
+      try{
+        $page_request = $request->input('page');
+        $movieDTO = new MovieDTO();
+        $movieDTO->setPage($page_request);
+        $result = $this->movieService->getTopRatedMovies($movieDTO);
+        return response()->json($result, 200);
+      }catch(\Exception $e){
+        return response()->json($e->getMessage(), 500);
+      }
+    }
+
+    public function trendingMoviesCTLL(Request $request){
+      try{
+        $user = Auth::user()->name;
+        $page_request = $request->input('page');
+        $movieDTO = new MovieDTO();
+        $movieDTO->setPage($page_request);
+        $result = $this->movieService->getWeeklyTrendMovies($movieDTO);
+        return response()->json($result, 200);
+      }catch(\Exception $e){
+        return response()->json($e->getMessage(), 500);
+      }
+    }
+
+    public function getMovieByIdCTLL(Request $request, $id){
+      try{
+        $user = Auth::user()->name;
+        $movieDTO = new MovieDTO();
+        $movieDTO->setId($id);
+        $result = $this->movieService->getMovieById($movieDTO);
+        return response()->json($result, 200);
+      }catch(\Exception $e){
+        return response()->json($e->getMessage(), 500);
+      }
+    }
+
+    public function popularTvsCTLL(Request $request){
+      try{
+        $page_request = $request->input('page');
+        $tvDTO = new TvDTO();
+        $tvDTO->setPage($page_request);
+        $result = $this->tvService->getPopularTvs($tvDTO);
+        return response()->json($result, 200);
+      }catch(\Exception $e){
+        return response()->json($e->getMessage(), 500);
+      }
+    }
+
+
+    public function topRatedTvsCTLL(Request $request){
+      try{
+        $page_request = $request->input('page');
+        $tvDTO = new TvDTO();
+        $tvDTO->setPage($page_request);
+        $result = $this->tvService->getTopRatedTvs($tvDTO);
+        return response()->json($result, 200);
+      }catch(\Exception $e){
+        return response()->json($e->getMessage(), 500);
+      }
+    }
+
+    public function trendingTvsCTLL(Request $request){
+      try{
+        $page_request = $request->input('page');
+        $tvDTO = new TvDTO();
+        $tvDTO->setPage($page_request);
+        $result = $this->tvService->getWeeklyTrendTvs($tvDTO);
+        return response()->json($result, 200);
+      }catch(\Exception $e){
+        return response()->json($e->getMessage(), 500);
+      }
+    }
+
+    public function getTvByIdCTLL(Request $request, $id){
+      try{
+        $user = Auth::user()->name;
+        $tvDTO = new TvDTO();
+        $tvDTO->setId($id);
+        $result = $this->tvService->getTvById($tvDTO);
+        return response()->json($result, 200);
+      }catch(\Exception $e){
+        return response()->json($e->getMessage(), 500);
+      }
+    }
 
 }

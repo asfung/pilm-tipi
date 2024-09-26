@@ -31,13 +31,15 @@ class Bookmarks extends Component
     public function bookmark(){
         if ($this->isClicked) {
             // if alr exist database, gonna removed it from database
-            ModelsBookmarks::where('name_user', Auth::user()->name)
+            // ModelsBookmarks::where('name_user', Auth::user()->name)
+            ModelsBookmarks::where('id_user', Auth::user()->id)
                 ->where('item_id', $this->id_item)
                 ->where('item_type', $this->item_type)
                 ->delete();
         } else {
             // if not exist on database, add to the database
             $addBookmarks = new ModelsBookmarks([
+                'id_user' => Auth::user()->id,
                 'name_user' => Auth::user()->name,
                 'item_id' => $this->id_item,
                 'item_type' => $this->item_type,

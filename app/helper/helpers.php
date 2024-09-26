@@ -115,3 +115,14 @@ function getTvByArray($ids){
 
   return $tvs;
 }
+
+// this is bad just using user_id not using the name because the name is not unique as email
+function getBookmark($id_user, $item_id){
+  $result = BookmarksModel::where('id_user', $id_user)->where('item_id', $item_id);
+  return $result;
+}
+
+function isBookmarkExist($id_user, $item_id){
+  $result = BookmarksModel::where('id_user', $id_user)->where('item_id', $item_id)->exists();
+  return $result;
+}

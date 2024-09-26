@@ -11,6 +11,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.2",
+        "php-open-source-saver/jwt-auth": "^2.3",
         "realrashid/sweet-alert": "^7.1"
     },
     "require-dev": {

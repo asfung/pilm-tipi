@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\UserAuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\RegisterController;
@@ -44,6 +45,14 @@ Route::get('/popular-movies/{page}', [MoviesTvShowsController::class, 'index'])-
 //     Route::get('/', [MoviesTvShowsController::class, 'index'])->middleware('AksesUser:user');
 //     Route::get('/movie/{id}', [MoviesTvShowsController::class, 'movieDetail'])->name('movie-details')->middleware('AksesUser:user');
 // });
+
+// Route::group()
+// Route::group(['middleware' => [], 'prefix' => '/api/1'], function ($router) {
+//     $router->get('/test', [MoviesTvShowsController::class, 'moviesCTL']);
+//     $router->get('/helo', [MoviesTvShowsController::class, 'tvsCTL']);
+// });
+
+Route::get('/api/login', [UserAuthController::class, 'page'])->name('api.login.page');
 
 
 
