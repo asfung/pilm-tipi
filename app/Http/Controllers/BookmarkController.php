@@ -6,6 +6,7 @@ use App\DataTransferObject\BookmarkDTO;
 use App\services\BookmarkService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use OpenApi\Annotations as OA;
 
 class BookmarkController extends Controller
 {
@@ -14,6 +15,30 @@ class BookmarkController extends Controller
         $this->bookmarkService = new BookmarkService();
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/1/bookmark/Create",
+     *     tags={"Bookmarks"},
+     *     summary="Create a bookmark",
+     *     description="Allows a user to bookmark an item.",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"item_id", "item_type"},
+     *             @OA\Property(property="item_id", type="integer"),
+     *             @OA\Property(property="item_type", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Bookmark created"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Server error"
+     *     )
+     * )
+     */
     public function storeCTLL(Request $request){
       try{
         $user = Auth::user()->name;
@@ -30,6 +55,30 @@ class BookmarkController extends Controller
       }
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/1/bookmark/Delete",
+     *     tags={"Bookmarks"},
+     *     summary="Delete a bookmark",
+     *     description="Allows a user to remove a bookmark.",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"item_id", "item_type"},
+     *             @OA\Property(property="item_id", type="integer"),
+     *             @OA\Property(property="item_type", type="string")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Bookmark deleted"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Server error"
+     *     )
+     * )
+     */
     public function deleteCTLL(Request $request){
       try{
         $user = Auth::user()->name;
@@ -46,6 +95,30 @@ class BookmarkController extends Controller
       }
     }
 
+    
+    /**
+     * @OA\Get(
+     *     path="/api/1/bookmark",
+     *     tags={"Bookmarks"},
+     *     summary="Get user bookmarks",
+     *     description="Returns a list of the user's bookmarked items.",
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="Page number for pagination",
+     *         required=false,
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="A list of bookmarks"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Server error"
+     *     )
+     * )
+     */
     public function getBookmarkCTLL(Request $request){
       try{
         $user = Auth::user()->name;

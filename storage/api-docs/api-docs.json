@@ -1,0 +1,408 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Movies and TV Shows API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/1/bookmark/Create": {
+            "post": {
+                "tags": [
+                    "Bookmarks"
+                ],
+                "summary": "Create a bookmark",
+                "description": "Allows a user to bookmark an item.",
+                "operationId": "c6ad7d12ef625e3f74a4d0c36ebc2f64",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "item_id",
+                                    "item_type"
+                                ],
+                                "properties": {
+                                    "item_id": {
+                                        "type": "integer"
+                                    },
+                                    "item_type": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Bookmark created"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/1/bookmark/Delete": {
+            "post": {
+                "tags": [
+                    "Bookmarks"
+                ],
+                "summary": "Delete a bookmark",
+                "description": "Allows a user to remove a bookmark.",
+                "operationId": "43774ba8ae7e2420af808064ae41e9c0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "item_id",
+                                    "item_type"
+                                ],
+                                "properties": {
+                                    "item_id": {
+                                        "type": "integer"
+                                    },
+                                    "item_type": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Bookmark deleted"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/1/bookmark": {
+            "get": {
+                "tags": [
+                    "Bookmarks"
+                ],
+                "summary": "Get user bookmarks",
+                "description": "Returns a list of the user's bookmarked items.",
+                "operationId": "6e12f152f9bc64e67b4fd83750c96554",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number for pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of bookmarks"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/1/movie/popular": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get popular movies",
+                "description": "Returns a list of popular movies.",
+                "operationId": "68453800acfa75fa2e039abe0a779a14",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number for pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of popular movies"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/1/movie/top_rated": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get top-rated movies",
+                "description": "Returns a list of top-rated movies.",
+                "operationId": "c3dd8a8b0c29625b96189bc719f8a4b0",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number for pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of top-rated movies"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/1/movie/trending": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get trending movies",
+                "description": "Returns a list of trending movies.",
+                "operationId": "3cadc2a0e6a51ae1c0dccd4d601e9a49",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number for pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of trending movies"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/1/movie/{id}": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "summary": "Get movie by ID",
+                "description": "Returns details of a specific movie by its ID.",
+                "operationId": "c7cbeaa175981bdacd59968c31810d61",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the movie",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Movie details"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/tv/popular": {
+            "get": {
+                "tags": [
+                    "TV Shows"
+                ],
+                "summary": "Get a list of popular TV shows",
+                "operationId": "0647268249e17b38c7ce4a10765ad41e",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of popular TV shows",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/tv/top_rated": {
+            "get": {
+                "tags": [
+                    "TV Shows"
+                ],
+                "summary": "Get a list of top-rated TV shows",
+                "operationId": "ee75dd47ba27925da43686587a438053",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of top-rated TV shows",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/tv/trending": {
+            "get": {
+                "tags": [
+                    "TV Shows"
+                ],
+                "summary": "Get a list of trending TV shows",
+                "operationId": "693d0f0b73672e010638dcd31a1b02d2",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of trending TV shows",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/tv/{id}": {
+            "get": {
+                "tags": [
+                    "TV Shows"
+                ],
+                "summary": "Get a specific TV show by ID",
+                "operationId": "cdd233aabb4ce10933f57fed9dd371c6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "TV show ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "TV show details",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "TV show not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Bookmarks",
+            "description": "Bookmarks"
+        },
+        {
+            "name": "Movies",
+            "description": "Movies"
+        },
+        {
+            "name": "TV Shows",
+            "description": "TV Shows"
+        }
+    ]
+}
