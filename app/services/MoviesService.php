@@ -100,7 +100,7 @@ class MoviesService extends CommonService{
             $id = $movieDTO->getId();
             $client = new \GuzzleHttp\Client();
 
-            $response = $client->request('GET', config('services.tmdb.endpoint') . 'movie/' . $id . '?language=en-US' , [
+            $response = $client->request('GET', config('services.tmdb.endpoint') . 'movie/' . $id . '?language=en-US&append_to_response=videos,credits,images,external_ids,release_dates,combined_credits' , [
                 'headers' => [
                 'Authorization' => config('services.tmdb.auth'),
                 'accept' => 'application/json',
