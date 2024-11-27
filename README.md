@@ -6,6 +6,8 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 </p>
 
+## [NEW CLIENT DEMO](https://github.com/asfung/pilm-tipi-client)
+
 ## Demo
 #### Home
 <p><img src="https://github.com/asfung/pilm-tipi/blob/main/docs/assets/image/home_client.png?raw=true"/></p>

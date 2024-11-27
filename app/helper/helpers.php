@@ -126,3 +126,8 @@ function isBookmarkExist($id_user, $item_id){
   $result = BookmarksModel::where('id_user', $id_user)->where('item_id', $item_id)->exists();
   return $result;
 }
+
+function deleteBookmark($id_user, $item_id){
+  $bookmark = BookmarksModel::where('id_user',$id_user)->where('item_id', $item_id)->delete();
+  return $bookmark;
+}

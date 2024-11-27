@@ -19,7 +19,11 @@ class BookmarkService extends CommonService{
 
             $isExist = isBookmarkExist($user->id, $item_id);
             if($isExist){
-                $response = new ResponJson(409, 'Conflict', "Data Is Already exist in database", 'Duplicate Raw');
+                $delete = deleteBookmark($user->id, $item_id);
+                $response = new ResponJson(200, 'Data Berhasil Dihapus', $delete, null);
+                // $isExist->delete();
+                // $response = new ResponJson(409, 'Conflict', "Data Is Already exist in database", 'Duplicate Raw');
+                // return $response->getResponse();
                 return $response->getResponse();
             }
 
@@ -34,7 +38,7 @@ class BookmarkService extends CommonService{
             $bookmark->name_user = $user->name;
             $bookmark->item_id = $item_id;
             $bookmark->item_type = $item_type;
-            // $bookmark->save();
+            $bookmark->save();
 
             $response = new ResponJson(200, 'Data Berhasil Ditambahkan', $bookmark, null);
             return $response->getResponse();

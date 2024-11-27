@@ -102,7 +102,7 @@ class TvsService extends CommonService{
             $page = is_null($tvDTO->getPage()) ? 1 : $tvDTO->getPage();
             $id = $tvDTO->getId();
             $client = new \GuzzleHttp\Client();
-            $response = $client->request('GET', config('services.tmdb.endpoint') . 'tv/' . $id . '?language=en-US&api_key=' . config('services.tmdb.api'), [
+            $response = $client->request('GET', config('services.tmdb.endpoint') . 'tv/' . $id . '?language=en-US&&append_to_response=videos,credits,images,external_ids,release_dates,combined_credits&api_key=' . config('services.tmdb.api'), [
                 'headers' => [
                     'Authorization' => config('servies.tmdb.auth'),
                     'accept' => 'application/json',
