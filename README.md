@@ -18,6 +18,12 @@
 #### TVs
 <p><img src="https://github.com/asfung/pilm-tipi/blob/main/docs/assets/image/tv_client.png?raw=true"/></p>
 
+#### Movie Details
+<p><img src="https://github.com/asfung/pilm-tipi/blob/main/docs/assets/image/movie_details_liloandstitch.png?raw=true"/></p>
+
+#### Movie Details
+<p><img src="https://github.com/asfung/pilm-tipi/blob/main/docs/assets/image/tv_details_squidgame.png?raw=true"/></p>
+
 #### Bookmarks
 <p><img src="https://github.com/asfung/pilm-tipi/blob/main/docs/assets/image/bookmarks_client.png?raw=true"/></p>
 
